@@ -16,6 +16,7 @@ import {
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
 import { FoodSearch } from '@/features/dashboard/components/food-search';
+import { RecentMeals } from '@/features/dashboard/components/recent-meals';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -153,84 +154,7 @@ export default async function OverViewLayout({
         </div>
 
         {/* Recent Meals List */}
-        <div className='space-y-4'>
-          <h3 className='text-xl font-semibold tracking-tight'>
-            Recent Meals 🍽️
-          </h3>
-          {user && logs && logs.length > 0 ? (
-            <div className='rounded-md border'>
-              <div className='relative w-full overflow-auto'>
-                <table className='w-full caption-bottom text-sm'>
-                  <thead className='[&_tr]:border-b'>
-                    <tr className='hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors'>
-                      <th className='text-muted-foreground h-12 px-4 text-left align-middle font-medium'>
-                        Time
-                      </th>
-                      <th className='text-muted-foreground h-12 px-4 text-left align-middle font-medium'>
-                        Food
-                      </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
-                        Serving (g)
-                      </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
-                        Calories
-                      </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
-                        Protein
-                      </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
-                        Carbs
-                      </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
-                        Fat
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className='[&_tr:last-child]:border-0'>
-                    {logs.map((log) => (
-                      <tr
-                        key={log.id}
-                        className='hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors'
-                      >
-                        <td className='p-4 align-middle'>
-                          {new Date(log.created_at).toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
-                        </td>
-                        <td className='p-4 align-middle font-medium'>
-                          {log.name}
-                        </td>
-                        <td className='p-4 text-right align-middle'>
-                          {log.serving_size_g}g
-                        </td>
-                        <td className='p-4 text-right align-middle'>
-                          {log.calories}
-                        </td>
-                        <td className='p-4 text-right align-middle'>
-                          {log.protein_g}g
-                        </td>
-                        <td className='p-4 text-right align-middle'>
-                          {log.carbs_g}g
-                        </td>
-                        <td className='p-4 text-right align-middle'>
-                          {log.fat_g}g
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ) : (
-            <div className='text-muted-foreground flex h-[150px] w-full flex-col items-center justify-center rounded-md border border-dashed text-sm'>
-              No meals logged today.
-              <Button variant='link' asChild className='mt-2'>
-                <Link href='/dashboard/log-meal'>Log your first meal</Link>
-              </Button>
-            </div>
-          )}
-        </div>
+        <RecentMeals logs={logs} />
       </div>
     </PageContainer>
   );

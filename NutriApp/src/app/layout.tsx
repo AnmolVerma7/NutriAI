@@ -16,8 +16,8 @@ const META_THEME_COLORS = {
 };
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn',
-  description: 'Basic dashboard with Next.js and Shadcn'
+  title: 'NutriAI',
+  description: 'Your AI-powered nutrition companion'
 };
 
 export const viewport: Viewport = {
