@@ -65,6 +65,9 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 # API Ninjas (Food Search)
 CALORIE_NINJAS_API_KEY=your_api_ninjas_key
+
+# Spoonacular (Recipes)
+SPOONACULAR_API_KEY=your_spoonacular_key
 ```
 
 _Ask the project lead for the actual values of these keys._
@@ -91,9 +94,21 @@ Once the server starts, open your web browser and visit:
 
 - **Framework:** Next.js 16
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Database:** Supabase
+- **Styling:** Tailwind CSS + Shadcn UI
+- **Database:** Supabase (PostgreSQL)
 - **Authentication:** Supabase Auth
+- **APIs:**
+  - **API Ninjas:** Nutrition Data
+  - **Spoonacular:** Recipe Search & Details
+
+## Key Features
+
+- **🍎 Smart Meal Logging:** Search for foods or manually enter details.
+- **🍳 Recipe Discovery:** Browse thousands of recipes with filters (Diet, Calories, etc.).
+- **❤️ Favorites System:** Save your favorite recipes for quick access.
+- **⚙️ Settings:** Manage preferences like "Confirm before delete".
+- **⚡ Smart Caching:** Minimizes API usage by caching recipes in Supabase.
+- **📊 Dashboard:** View your daily progress and recent activities.
 
 ## Contributing
 
