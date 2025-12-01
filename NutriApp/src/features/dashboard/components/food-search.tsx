@@ -23,7 +23,7 @@ export function FoodSearch({ onSelect }: FoodSearchProps) {
     setLoading(true);
     setError('');
     setResults([]);
-    
+
     try {
       const res = await searchFoodAction(query);
       if (res.success && res.data) {
@@ -39,38 +39,38 @@ export function FoodSearch({ onSelect }: FoodSearchProps) {
   };
 
   return (
-    <div className="space-y-4">
-      <form onSubmit={handleSearch} className="flex gap-2">
+    <div className='space-y-4'>
+      <form onSubmit={handleSearch} className='flex gap-2'>
         <Input
           placeholder="Search for food (e.g., '1 cup rice')"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <Button type="submit" disabled={loading}>
+        <Button type='submit' disabled={loading}>
           {loading ? 'Searching...' : 'Search'}
         </Button>
       </form>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className='text-sm text-red-500'>{error}</p>}
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
         {results.map((item, index) => (
           <Card key={index}>
             <CardHeader>
-              <CardTitle className="capitalize">{item.name}</CardTitle>
+              <CardTitle className='capitalize'>{item.name}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-1 text-sm">
+              <div className='space-y-1 text-sm'>
                 <p>Calories: {item.calories}</p>
                 <p>Protein: {item.protein_g}g</p>
                 <p>Carbs: {item.carbohydrates_total_g}g</p>
                 <p>Fat: {item.fat_total_g}g</p>
               </div>
               {onSelect && (
-                <Button 
-                  className="w-full mt-4" 
+                <Button
+                  className='mt-4 w-full'
                   onClick={() => onSelect(item)}
-                  variant="secondary"
+                  variant='secondary'
                 >
                   Add to Log
                 </Button>

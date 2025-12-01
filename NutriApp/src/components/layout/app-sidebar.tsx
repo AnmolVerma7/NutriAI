@@ -60,16 +60,22 @@ const tenants = [
 import { signout } from '@/features/auth/actions';
 import { User } from '@supabase/supabase-js';
 
-export default function AppSidebar({ user: supabaseUser }: { user: User | null }) {
+export default function AppSidebar({
+  user: supabaseUser
+}: {
+  user: User | null;
+}) {
   const pathname = usePathname();
   const { isOpen } = useMediaQuery();
   const router = useRouter();
-  
-  const user = supabaseUser ? {
-    fullName: supabaseUser.user_metadata?.full_name || 'User',
-    emailAddresses: [{ emailAddress: supabaseUser.email || '' }],
-    imageUrl: supabaseUser.user_metadata?.avatar_url || ''
-  } : null;
+
+  const user = supabaseUser
+    ? {
+        fullName: supabaseUser.user_metadata?.full_name || 'User',
+        emailAddresses: [{ emailAddress: supabaseUser.email || '' }],
+        imageUrl: supabaseUser.user_metadata?.avatar_url || ''
+      }
+    : null;
 
   const handleSwitchTenant = (_tenantId: string) => {
     // Tenant switching functionality would be implemented here

@@ -25,7 +25,9 @@ function safeParseFloat(value: any): number {
   return 0;
 }
 
-export async function searchFood(query: string): Promise<{ success: boolean; data?: NutritionData[]; error?: string }> {
+export async function searchFood(
+  query: string
+): Promise<{ success: boolean; data?: NutritionData[]; error?: string }> {
   const apiKey = process.env.CALORIE_NINJAS_API_KEY;
 
   if (!apiKey) {
@@ -38,8 +40,8 @@ export async function searchFood(query: string): Promise<{ success: boolean; dat
   try {
     const response = await fetch(url, {
       headers: {
-        'X-Api-Key': apiKey,
-      },
+        'X-Api-Key': apiKey
+      }
     });
 
     if (!response.ok) {
@@ -47,7 +49,7 @@ export async function searchFood(query: string): Promise<{ success: boolean; dat
     }
 
     const rawData = await response.json();
-    
+
     // API Ninjas returns an array directly
     if (Array.isArray(rawData)) {
       const sanitizedData: NutritionData[] = rawData.map((item: any) => ({
@@ -62,16 +64,15 @@ export async function searchFood(query: string): Promise<{ success: boolean; dat
         cholesterol_mg: safeParseFloat(item.cholesterol_mg),
         carbohydrates_total_g: safeParseFloat(item.carbohydrates_total_g),
         fiber_g: safeParseFloat(item.fiber_g),
-        sugar_g: safeParseFloat(item.sugar_g),
+        sugar_g: safeParseFloat(item.sugar_g)
       }));
-      
+
       return { success: true, data: sanitizedData };
     }
 
     // Fallback for unexpected structure
     console.error('Unexpected API response structure:', rawData);
     return { success: false, error: 'Unexpected API response format' };
-
   } catch (error) {
     console.error('API Request Error:', error);
     return { success: false, error: 'Failed to fetch nutrition data' };

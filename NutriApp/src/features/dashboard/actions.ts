@@ -21,9 +21,9 @@ import { NutritionData } from '@/lib/calorie-ninjas';
 
 export async function logFoodAction(foodItem: NutritionData) {
   const supabase = await createClient();
-  
+
   const {
-    data: { user },
+    data: { user }
   } = await supabase.auth.getUser();
 
   if (!user) {
@@ -37,7 +37,7 @@ export async function logFoodAction(foodItem: NutritionData) {
     protein_g: foodItem.protein_g,
     carbs_g: foodItem.carbohydrates_total_g,
     fat_g: foodItem.fat_total_g,
-    serving_size_g: foodItem.serving_size_g,
+    serving_size_g: foodItem.serving_size_g
   });
 
   if (error) {

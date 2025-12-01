@@ -23,7 +23,9 @@ export function UserNav() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
       setUser(user);
     };
     getUser();
@@ -40,7 +42,7 @@ export function UserNav() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
-            <UserAvatarProfile user={displayUser as any} /> 
+            <UserAvatarProfile user={displayUser as any} />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -69,9 +71,7 @@ export function UserNav() {
             <DropdownMenuItem>New Team</DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => signout()}>
-            Log out
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => signout()}>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );
