@@ -14,22 +14,24 @@
 
 ## Day 2: UI & Design
 
-- [ ] Design landing page (hero, features, CTA)
-- [ ] Create dashboard layout
-- [ ] Build meal logging form UI
-- [ ] Integrate CalorieNinjas API
-- [ ] Create API route: `/api/search-food`
-- [ ] Create API route: `/api/log-meal`
-- [ ] Test saving meals to Supabase <!-- Manual Test Required -->
+- [x] Design landing page (hero, features, CTA)
+- [x] Create dashboard layout
+- [x] Build meal logging form UI
+- [x] Integrate CalorieNinjas API (Switched to API Ninjas)
+- [x] Create API route: `/api/search-food` (Implemented via Server Actions)
+- [x] Create API route: `/api/log-meal` (Implemented via Server Actions)
+- [x] Test saving meals to Supabase
 
 ## Day 3: Data Integration & APIs
 
-- [ ] Build recipe browser UI
-- [ ] Create filters (vegan, keto, low-cal, etc.)
-- [ ] Integrate Spoonacular API
-- [ ] Create API route: `/api/search-recipes`
-- [ ] Create API route: `/api/get-recipe-details`
-- [ ] Test recipe search with filters <!-- Manual Test Required -->
+- [x] Build recipe browser UI
+- [x] Create filters (vegan, keto, low-cal, etc.)
+- [x] Integrate Spoonacular API
+- [x] Create API route: `/api/search-recipes` (Implemented via Server Actions)
+- [x] Create API route: `/api/get-recipe-details` (Implemented via Server Actions)
+- [x] Test recipe search with filters
+- [x] Implement Database Caching for Recipes (Bonus)
+- [x] Implement Recently Visited Recipes (Bonus)
 
 ## Day 4-5: AI Agentic Workflow
 
