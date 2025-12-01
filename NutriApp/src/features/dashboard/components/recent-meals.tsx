@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Trash2, Settings2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { deleteFoodLogAction } from '@/features/dashboard/actions';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -16,14 +16,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuCheckboxItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
 
 interface FoodLog {
@@ -53,11 +45,6 @@ export function RecentMeals({ logs }: RecentMealsProps) {
       setConfirmDelete(storedPref === 'true');
     }
   }, []);
-
-  const toggleConfirmDelete = (checked: boolean) => {
-    setConfirmDelete(checked);
-    localStorage.setItem('nutri-confirm-delete', String(checked));
-  };
 
   const handleDeleteClick = async (id: string) => {
     if (confirmDelete) {
@@ -91,24 +78,6 @@ export function RecentMeals({ logs }: RecentMealsProps) {
         <h3 className='text-xl font-semibold tracking-tight'>
           Recent Meals 🍽️
         </h3>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' size='sm' className='h-8 w-8 p-0'>
-              <Settings2 className='h-4 w-4' />
-              <span className='sr-only'>Settings</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>List Settings</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuCheckboxItem
-              checked={confirmDelete}
-              onCheckedChange={toggleConfirmDelete}
-            >
-              Confirm before delete
-            </DropdownMenuCheckboxItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
 
       {logs && logs.length > 0 ? (

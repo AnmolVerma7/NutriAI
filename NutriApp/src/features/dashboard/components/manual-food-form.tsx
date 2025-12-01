@@ -98,7 +98,7 @@ export function ManualFoodForm() {
   }
 
   return (
-    <Form form={form} onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+    <Form form={form} onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 max-w-2xl mx-auto'>
       <FormField
         control={form.control}
         name='name'
@@ -117,8 +117,8 @@ export function ManualFoodForm() {
                       const val = e.target.value;
                       setSearchTerm(val);
                       setOpen(true);
+                      form.setValue('name', val);
                       if (val === '') {
-                        form.setValue('name', '');
                         setValue('');
                       }
                     }}

@@ -39,21 +39,24 @@ export function FoodSearch({ onSelect }: FoodSearchProps) {
   };
 
   return (
-    <div className='space-y-4'>
-      <form onSubmit={handleSearch} className='flex gap-2'>
-        <Input
-          placeholder="Search for food (e.g., '1 cup rice')"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <Button type='submit' disabled={loading}>
-          {loading ? 'Searching...' : 'Search'}
-        </Button>
-      </form>
+    <div className='space-y-8'>
+      <div className="flex flex-col items-center space-y-4">
+        <form onSubmit={handleSearch} className='flex w-full max-w-2xl gap-2'>
+          <Input
+            placeholder="Search for food (e.g., '1 cup rice')"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="flex-1"
+          />
+          <Button type='submit' disabled={loading}>
+            {loading ? 'Searching...' : 'Search'}
+          </Button>
+        </form>
+      </div>
 
-      {error && <p className='text-sm text-red-500'>{error}</p>}
+      {error && <p className='text-sm text-red-500 text-center'>{error}</p>}
 
-      <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
         {results.map((item, index) => (
           <Card key={index}>
             <CardHeader>

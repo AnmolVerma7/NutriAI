@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { getRecipeInformationAction } from '@/features/dashboard/actions/recipes';
+import { getRecipeInformationAction, toggleFavoriteAction, getFavoriteStatusAction } from '@/features/dashboard/actions/recipes';
 import { RecipeInformation } from '@/lib/spoonacular';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, ArrowLeft, Clock, Users } from 'lucide-react';
+import { Loader2, ArrowLeft, Clock, Users, Heart } from 'lucide-react';
 import Image from 'next/image';
 import PageContainer from '@/components/layout/page-container';
 import { toast } from 'sonner';
@@ -18,17 +18,27 @@ export default function RecipeDetailsPage() {
   const id = Number(params.id);
   const [recipe, setRecipe] = useState<RecipeInformation | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isTogglingFav, setIsTogglingFav] = useState(false);
 
   useEffect(() => {
     if (!id) return;
 
-    const fetchRecipe = async () => {
+    const fetchData = async () => {
       try {
-        const result = await getRecipeInformationAction(id);
-        if (result.success && result.data) {
-          setRecipe(result.data);
+        const [recipeResult, favResult] = await Promise.all([
+          getRecipeInformationAction(id),
+          getFavoriteStatusAction(id)
+        ]);
+
+        if (recipeResult.success && recipeResult.data) {
+          setRecipe(recipeResult.data);
         } else {
-          toast.error(result.error || 'Failed to load recipe');
+          toast.error(recipeResult.error || 'Failed to load recipe');
+        }
+
+        if (favResult.success) {
+          setIsFavorite(favResult.isFavorite);
         }
       } catch (error) {
         toast.error('An error occurred');
@@ -37,8 +47,27 @@ export default function RecipeDetailsPage() {
       }
     };
 
-    fetchRecipe();
+    fetchData();
   }, [id]);
+
+  const handleToggleFavorite = async () => {
+    if (!recipe) return;
+    setIsTogglingFav(true);
+    try {
+      const newStatus = !isFavorite;
+      const result = await toggleFavoriteAction(recipe.id, newStatus);
+      if (result.success) {
+        setIsFavorite(newStatus);
+        toast.success(newStatus ? 'Added to favorites' : 'Removed from favorites');
+      } else {
+        toast.error(result.error || 'Failed to update favorite');
+      }
+    } catch (error) {
+      toast.error('An error occurred');
+    } finally {
+      setIsTogglingFav(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -65,10 +94,21 @@ export default function RecipeDetailsPage() {
     <PageContainer>
       <AddToHistory id={id} />
       <div className="space-y-6 max-w-5xl mx-auto">
-        <Button variant="ghost" className="mb-4 hover:bg-transparent pl-0" onClick={() => router.back()}>
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Search
-        </Button>
+        <div className="flex items-center justify-between">
+          <Button variant="ghost" className="hover:bg-transparent pl-0" onClick={() => router.back()}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Search
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleToggleFavorite}
+            disabled={isTogglingFav}
+            className={isFavorite ? "text-red-500 hover:text-red-600 border-red-200 bg-red-50 hover:bg-red-100" : ""}
+          >
+            <Heart className={`h-5 w-5 ${isFavorite ? "fill-current" : ""}`} />
+          </Button>
+        </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Left Column: Image & Ingredients */}

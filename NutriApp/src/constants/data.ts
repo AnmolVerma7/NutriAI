@@ -38,6 +38,14 @@ export const navItems: NavItem[] = [
     items: []
   },
   {
+    title: 'Favorites',
+    url: '/dashboard/favorites',
+    icon: 'heart',
+    isActive: false,
+    shortcut: ['f', 'f'],
+    items: []
+  },
+  {
     title: 'Product',
     url: '/dashboard/product',
     icon: 'product',

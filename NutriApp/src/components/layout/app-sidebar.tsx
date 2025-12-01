@@ -38,7 +38,8 @@ import {
   IconCreditCard,
   IconLogout,
   IconPhotoUp,
-  IconUserCircle
+  IconUserCircle,
+  IconSettings
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -208,6 +209,10 @@ export default function AppSidebar({
                   <DropdownMenuItem>
                     <IconBell className='mr-2 h-4 w-4' />
                     Notifications
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => router.push('/settings')}>
+                    <IconSettings className='mr-2 h-4 w-4' />
+                    Settings
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />

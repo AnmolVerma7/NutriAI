@@ -21,7 +21,7 @@ export default function LogMealPage() {
 
   return (
     <PageContainer>
-      <div className='space-y-4'>
+      <div className='space-y-4 max-w-7xl mx-auto'>
         <h2 className='text-2xl font-bold tracking-tight'>Log a Meal 🥗</h2>
         <p className='text-muted-foreground'>
           Search for what you ate, or enter it manually.
