@@ -18,7 +18,10 @@ export interface RecipeSearchResponse {
   totalResults: number;
 }
 
-export async function searchRecipes(query: string, number: number = 10): Promise<RecipeSearchResponse | null> {
+export async function searchRecipes(
+  query: string,
+  number: number = 10
+): Promise<RecipeSearchResponse | null> {
   return unstable_cache(
     async () => {
       if (!SPOONACULAR_API_KEY) {
@@ -67,7 +70,9 @@ export interface RecipeInformation {
   }[];
 }
 
-export async function getRecipeInformation(id: number): Promise<RecipeInformation | null> {
+export async function getRecipeInformation(
+  id: number
+): Promise<RecipeInformation | null> {
   const supabase = await createClient();
 
   // 1. Check Database
@@ -114,7 +119,7 @@ export async function getRecipeInformation(id: number): Promise<RecipeInformatio
       title: data.title,
       image: data.image,
       data: data,
-      updated_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
     });
 
     if (upsertError) {
@@ -133,7 +138,9 @@ export async function getRecipeInformation(id: number): Promise<RecipeInformatio
   }
 }
 
-export async function getRecipesByIds(ids: number[]): Promise<RecipeInformation[]> {
+export async function getRecipesByIds(
+  ids: number[]
+): Promise<RecipeInformation[]> {
   if (ids.length === 0) return [];
 
   const supabase = await createClient();

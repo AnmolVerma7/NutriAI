@@ -44,9 +44,14 @@ export async function getRecipesByIdsAction(ids: number[]) {
 
 import { createClient } from '@/lib/supabase/server';
 
-export async function toggleFavoriteAction(recipeId: number, isFavorite: boolean) {
+export async function toggleFavoriteAction(
+  recipeId: number,
+  isFavorite: boolean
+) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return { success: false, error: 'User not authenticated' };
@@ -58,7 +63,7 @@ export async function toggleFavoriteAction(recipeId: number, isFavorite: boolean
       const { error } = await supabase
         .from('favorite_recipes')
         .insert({ user_id: user.id, recipe_id: recipeId });
-      
+
       if (error) throw error;
     } else {
       // Remove from favorites
@@ -80,7 +85,9 @@ export async function toggleFavoriteAction(recipeId: number, isFavorite: boolean
 
 export async function getFavoriteStatusAction(recipeId: number) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
 
   if (!user) return { success: true, isFavorite: false };
 
@@ -92,7 +99,8 @@ export async function getFavoriteStatusAction(recipeId: number) {
       .eq('recipe_id', recipeId)
       .single();
 
-    if (error && error.code !== 'PGRST116') { // PGRST116 is "no rows returned"
+    if (error && error.code !== 'PGRST116') {
+      // PGRST116 is "no rows returned"
       console.error('Error checking favorite status:', error);
     }
 
@@ -104,30 +112,27 @@ export async function getFavoriteStatusAction(recipeId: number) {
 
 export async function clearCacheAction() {
   const supabase = await createClient();
-  
+
   try {
     // 1. Get all recipe IDs that are favorited by ANYONE
     const { data: favorites, error: favError } = await supabase
       .from('favorite_recipes')
       .select('recipe_id');
-    
+
     if (favError) throw favError;
 
-    const favoriteIds = favorites?.map(f => f.recipe_id) || [];
+    const favoriteIds = favorites?.map((f) => f.recipe_id) || [];
 
     // 2. Delete recipes that are NOT in the favorite list
     if (favoriteIds.length > 0) {
-       const { error } = await supabase
+      const { error } = await supabase
         .from('recipes')
         .delete()
         .not('id', 'in', `(${favoriteIds.join(',')})`);
-       if (error) throw error;
+      if (error) throw error;
     } else {
-       const { error } = await supabase
-        .from('recipes')
-        .delete()
-        .neq('id', 0); // Hack to delete all (id is never 0)
-       if (error) throw error;
+      const { error } = await supabase.from('recipes').delete().neq('id', 0); // Hack to delete all (id is never 0)
+      if (error) throw error;
     }
 
     return { success: true };
@@ -139,7 +144,9 @@ export async function clearCacheAction() {
 
 export async function getFavoriteRecipesAction() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return { success: false, error: 'User not authenticated' };
@@ -158,7 +165,7 @@ export async function getFavoriteRecipesAction() {
       return { success: true, data: [] };
     }
 
-    const recipeIds = favorites.map(f => f.recipe_id);
+    const recipeIds = favorites.map((f) => f.recipe_id);
 
     // 2. Fetch recipe details from recipes table
     const { data: recipes, error: recipeError } = await supabase
@@ -169,7 +176,7 @@ export async function getFavoriteRecipesAction() {
     if (recipeError) throw recipeError;
 
     // Parse the JSONB data
-    const parsedRecipes = recipes.map(r => r.data);
+    const parsedRecipes = recipes.map((r) => r.data);
 
     return { success: true, data: parsedRecipes };
   } catch (error) {

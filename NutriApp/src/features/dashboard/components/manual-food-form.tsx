@@ -35,7 +35,9 @@ import {
 import commonFoods from '@/constants/common-foods.json';
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: 'Food name must be at least 2 characters.' }),
+  name: z
+    .string()
+    .min(2, { message: 'Food name must be at least 2 characters.' }),
   calories: z.coerce.number().min(0),
   protein_g: z.coerce.number().min(0),
   carbohydrates_total_g: z.coerce.number().min(0),
@@ -98,20 +100,24 @@ export function ManualFoodForm() {
   }
 
   return (
-    <Form form={form} onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 max-w-2xl mx-auto'>
+    <Form
+      form={form}
+      onSubmit={form.handleSubmit(onSubmit)}
+      className='mx-auto max-w-2xl space-y-4'
+    >
       <FormField
         control={form.control}
         name='name'
         render={({ field }) => (
           <FormItem className='flex flex-col'>
             <FormLabel>Food Name</FormLabel>
-            <Command className="overflow-visible bg-transparent">
-              <div className="group border border-input px-3 py-2 text-sm ring-offset-background rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 bg-background">
-                <div className="flex items-center gap-2">
-                  <SearchIcon className="h-4 w-4 text-muted-foreground shrink-0" />
+            <Command className='overflow-visible bg-transparent'>
+              <div className='group border-input ring-offset-background focus-within:ring-ring bg-background rounded-md border px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-offset-2'>
+                <div className='flex items-center gap-2'>
+                  <SearchIcon className='text-muted-foreground h-4 w-4 shrink-0' />
                   <input
-                    className="flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
-                    placeholder="Select food or type name..."
+                    className='placeholder:text-muted-foreground flex-1 bg-transparent outline-none'
+                    placeholder='Select food or type name...'
                     value={searchTerm}
                     onChange={(e) => {
                       const val = e.target.value;
@@ -130,8 +136,8 @@ export function ManualFoodForm() {
                   />
                   {searchTerm ? (
                     <button
-                      type="button"
-                      className="ml-2 h-4 w-4 shrink-0 opacity-50 hover:opacity-100 cursor-pointer"
+                      type='button'
+                      className='ml-2 h-4 w-4 shrink-0 cursor-pointer opacity-50 hover:opacity-100'
                       onClick={(e) => {
                         e.stopPropagation();
                         setSearchTerm('');
@@ -139,19 +145,19 @@ export function ManualFoodForm() {
                         setValue('');
                       }}
                     >
-                      <span className="sr-only">Clear</span>
-                      <X className="h-4 w-4" />
+                      <span className='sr-only'>Clear</span>
+                      <X className='h-4 w-4' />
                     </button>
                   ) : null}
                 </div>
               </div>
-              <div className="relative">
+              <div className='relative'>
                 {open && searchTerm && (
-                  <div className="absolute top-2 z-50 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in fade-in-0 zoom-in-95">
+                  <div className='bg-popover text-popover-foreground animate-in fade-in-0 zoom-in-95 absolute top-2 z-50 w-full rounded-md border shadow-md outline-none'>
                     <CommandList>
-                      <CommandEmpty className="py-2 px-2">
+                      <CommandEmpty className='px-2 py-2'>
                         <div
-                          className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                          className='hover:bg-accent hover:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
                           onMouseDown={(e) => {
                             e.preventDefault(); // Prevent blur
                             form.setValue('name', searchTerm);
@@ -159,14 +165,16 @@ export function ManualFoodForm() {
                             setOpen(false);
                           }}
                         >
-                          <Check className="mr-2 h-4 w-4 opacity-0" />
+                          <Check className='mr-2 h-4 w-4 opacity-0' />
                           Use "{searchTerm}"
                         </div>
                       </CommandEmpty>
                       <CommandGroup>
                         {commonFoods
                           .filter((food) =>
-                            food.label.toLowerCase().includes(searchTerm.toLowerCase())
+                            food.label
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase())
                           )
                           .map((food) => (
                             <CommandItem
@@ -186,14 +194,19 @@ export function ManualFoodForm() {
                                   food.carbohydrates_total_g
                                 );
                                 form.setValue('fat_total_g', food.fat_total_g);
-                                form.setValue('serving_size_g', food.serving_size_g);
+                                form.setValue(
+                                  'serving_size_g',
+                                  food.serving_size_g
+                                );
                               }}
                               onMouseDown={(e) => e.preventDefault()} // Prevent blur
                             >
                               <Check
                                 className={cn(
                                   'mr-2 h-4 w-4',
-                                  value === food.label ? 'opacity-100' : 'opacity-0'
+                                  value === food.label
+                                    ? 'opacity-100'
+                                    : 'opacity-0'
                                 )}
                               />
                               {food.label}

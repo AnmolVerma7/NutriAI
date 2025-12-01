@@ -124,9 +124,7 @@ export function RecentMeals({ logs }: RecentMealsProps) {
                         minute: '2-digit'
                       })}
                     </td>
-                    <td className='p-4 align-middle font-medium'>
-                      {log.name}
-                    </td>
+                    <td className='p-4 align-middle font-medium'>{log.name}</td>
                     <td className='p-4 text-right align-middle'>
                       {log.serving_size_g}g
                     </td>
@@ -146,7 +144,7 @@ export function RecentMeals({ logs }: RecentMealsProps) {
                       <Button
                         variant='ghost'
                         size='icon'
-                        className='h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-100'
+                        className='h-8 w-8 text-red-500 hover:bg-red-100 hover:text-red-600'
                         onClick={() => handleDeleteClick(log.id)}
                         disabled={isDeleting}
                       >
@@ -169,7 +167,10 @@ export function RecentMeals({ logs }: RecentMealsProps) {
         </div>
       )}
 
-      <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+      <AlertDialog
+        open={!!deleteId}
+        onOpenChange={(open) => !open && setDeleteId(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
@@ -180,7 +181,7 @@ export function RecentMeals({ logs }: RecentMealsProps) {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              className="bg-red-500 hover:bg-red-600"
+              className='bg-red-500 hover:bg-red-600'
               onClick={() => deleteId && performDelete(deleteId)}
             >
               {isDeleting ? 'Deleting...' : 'Delete'}
