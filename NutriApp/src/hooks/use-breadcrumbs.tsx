@@ -3,43 +3,28 @@
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 
-type BreadcrumbItem = {
-  title: string;
-  link: string;
-};
-
-// This allows to add custom title as well
-const routeMapping: Record<string, BreadcrumbItem[]> = {
-  '/dashboard': [{ title: 'Dashboard', link: '/dashboard' }],
-  '/dashboard/employee': [
-    { title: 'Dashboard', link: '/dashboard' },
-    { title: 'Employee', link: '/dashboard/employee' }
-  ],
-  '/dashboard/product': [
-    { title: 'Dashboard', link: '/dashboard' },
-    { title: 'Product', link: '/dashboard/product' }
-  ]
-  // Add more custom mappings as needed
-};
-
 export function useBreadcrumbs() {
   const pathname = usePathname();
 
   const breadcrumbs = useMemo(() => {
-    // Check if we have a custom mapping for this exact path
-    if (routeMapping[pathname]) {
-      return routeMapping[pathname];
-    }
-
-    // If no exact match, fall back to generating breadcrumbs from the path
     const segments = pathname.split('/').filter(Boolean);
-    return segments.map((segment, index) => {
-      const path = `/${segments.slice(0, index + 1).join('/')}`;
-      return {
-        title: segment.charAt(0).toUpperCase() + segment.slice(1),
-        link: path
-      };
-    });
+    
+    // Get the last segment to show only the current page
+    const lastSegment = segments[segments.length - 1];
+    
+    if (!lastSegment) return [];
+
+    let title = lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
+    
+    // Custom title mappings
+    if (lastSegment === 'dashboard') title = 'Dashboard'; // Should rarely happen if redirect works
+    if (lastSegment === 'overview') title = 'Dashboard';
+    if (lastSegment === 'log-meal') title = 'Log Meal';
+
+    return [{
+      title,
+      link: pathname // Link to current page (or could be '#')
+    }];
   }, [pathname]);
 
   return breadcrumbs;

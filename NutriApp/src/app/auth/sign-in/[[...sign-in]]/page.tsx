@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import SignInViewPage from '@/features/auth/components/sign-in-view';
+import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Authentication | Sign In',
@@ -7,6 +9,13 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user) {
+    redirect('/dashboard/overview');
+  }
+
   let stars = 3000; // Default value
 
   try {

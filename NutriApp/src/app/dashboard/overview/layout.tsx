@@ -34,15 +34,19 @@ export default async function OverViewLayout({
     carbs: 0,
     fat: 0
   };
+  
+  let logs: any[] | null = null;
 
   if (user) {
     const today = new Date().toISOString().split('T')[0];
-    const { data: logs } = await supabase
+    const { data: fetchedLogs } = await supabase
       .from('food_logs')
       .select('*')
       .eq('user_id', user.id)
       .gte('created_at', `${today}T00:00:00`)
       .lte('created_at', `${today}T23:59:59`);
+      
+    logs = fetchedLogs;
 
     if (logs) {
       dailyTotals = logs.reduce((acc, log) => ({
@@ -122,8 +126,54 @@ export default async function OverViewLayout({
         </div> 
         */}
         
-        <div className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
+        <div className="rounded-lg border border-dashed p-8 text-center text-muted-foreground hidden">
             Charts coming soon...
+        </div>
+
+        {/* Recent Meals List */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold tracking-tight">Recent Meals 🍽️</h3>
+          {user && logs && logs.length > 0 ? (
+            <div className="rounded-md border">
+              <div className="relative w-full overflow-auto">
+                <table className="w-full caption-bottom text-sm">
+                  <thead className="[&_tr]:border-b">
+                    <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                      <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Time</th>
+                      <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Food</th>
+                      <th className="h-12 px-4 text-right align-middle font-medium text-muted-foreground">Serving (g)</th>
+                      <th className="h-12 px-4 text-right align-middle font-medium text-muted-foreground">Calories</th>
+                      <th className="h-12 px-4 text-right align-middle font-medium text-muted-foreground">Protein</th>
+                      <th className="h-12 px-4 text-right align-middle font-medium text-muted-foreground">Carbs</th>
+                      <th className="h-12 px-4 text-right align-middle font-medium text-muted-foreground">Fat</th>
+                    </tr>
+                  </thead>
+                  <tbody className="[&_tr:last-child]:border-0">
+                    {logs.map((log) => (
+                      <tr key={log.id} className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                        <td className="p-4 align-middle">
+                          {new Date(log.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </td>
+                        <td className="p-4 align-middle font-medium">{log.name}</td>
+                        <td className="p-4 align-middle text-right">{log.serving_size_g}g</td>
+                        <td className="p-4 align-middle text-right">{log.calories}</td>
+                        <td className="p-4 align-middle text-right">{log.protein_g}g</td>
+                        <td className="p-4 align-middle text-right">{log.carbs_g}g</td>
+                        <td className="p-4 align-middle text-right">{log.fat_g}g</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ) : (
+            <div className="flex h-[150px] w-full flex-col items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">
+              No meals logged today.
+              <Button variant="link" asChild className="mt-2">
+                <Link href="/dashboard/log-meal">Log your first meal</Link>
+              </Button>
+            </div>
+          )}
         </div>
 
       </div>
