@@ -17,7 +17,7 @@
 - [ ] Design landing page (hero, features, CTA)
 - [ ] Create dashboard layout
 - [ ] Build meal logging form UI
-- [ ] Integrate Nutritionix API
+- [ ] Integrate CalorieNinjas API
 - [ ] Create API route: `/api/search-food`
 - [ ] Create API route: `/api/log-meal`
 - [ ] Test saving meals to Supabase <!-- Manual Test Required -->
