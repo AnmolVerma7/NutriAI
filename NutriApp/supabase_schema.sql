@@ -36,3 +36,30 @@ $$ language plpgsql security definer;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
+
+-- Create a table for food logs
+create table food_logs (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references auth.users not null,
+  name text not null,
+  calories numeric not null,
+  protein_g numeric not null,
+  carbs_g numeric not null,
+  fat_g numeric not null,
+  serving_size_g numeric not null,
+  date date default current_date not null,
+  created_at timestamp with time zone default now() not null
+);
+
+-- Set up Row Level Security (RLS)
+alter table food_logs enable row level security;
+
+create policy "Users can view their own food logs." on food_logs
+  for select using ((select auth.uid()) = user_id);
+
+create policy "Users can insert their own food logs." on food_logs
+  for insert with check ((select auth.uid()) = user_id);
+
+create policy "Users can delete their own food logs." on food_logs
+  for delete using ((select auth.uid()) = user_id);
+

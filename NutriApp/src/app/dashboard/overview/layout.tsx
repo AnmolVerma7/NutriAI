@@ -1,19 +1,20 @@
 import PageContainer from '@/components/layout/page-container';
-import { Badge } from '@/components/ui/badge';
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
-  CardAction,
+  CardContent,
   CardFooter
 } from '@/components/ui/card';
-import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react';
+import { IconFlame, IconMeat, IconGrain, IconDroplet } from '@tabler/icons-react'; // Using approximate icons
 import React from 'react';
-
+import { createClient } from '@/lib/supabase/server';
 import { FoodSearch } from '@/features/dashboard/components/food-search';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
-export default function OverViewLayout({
+export default async function OverViewLayout({
   sales,
   pie_stats,
   bar_stats,
@@ -24,116 +25,107 @@ export default function OverViewLayout({
   bar_stats: React.ReactNode;
   area_stats: React.ReactNode;
 }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  let dailyTotals = {
+    calories: 0,
+    protein: 0,
+    carbs: 0,
+    fat: 0
+  };
+
+  if (user) {
+    const today = new Date().toISOString().split('T')[0];
+    const { data: logs } = await supabase
+      .from('food_logs')
+      .select('*')
+      .eq('user_id', user.id)
+      .gte('created_at', `${today}T00:00:00`)
+      .lte('created_at', `${today}T23:59:59`);
+
+    if (logs) {
+      dailyTotals = logs.reduce((acc, log) => ({
+        calories: acc.calories + (Number(log.calories) || 0),
+        protein: acc.protein + (Number(log.protein_g) || 0),
+        carbs: acc.carbs + (Number(log.carbs_g) || 0),
+        fat: acc.fat + (Number(log.fat_g) || 0)
+      }), dailyTotals);
+    }
+  }
+
   return (
     <PageContainer>
-      <div className='flex flex-1 flex-col space-y-2'>
+      <div className='flex flex-1 flex-col space-y-6'>
         <div className='flex items-center justify-between space-y-2'>
           <h2 className='text-2xl font-bold tracking-tight'>
-            Hi, Welcome back 👋
+            Daily Overview 🥗
           </h2>
+          <Button asChild>
+            <Link href="/dashboard/log-meal">Log Meal</Link>
+          </Button>
         </div>
-        <FoodSearch />
 
-        <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4'>
-          <Card className='@container/card'>
-            <CardHeader>
-              <CardDescription>Total Revenue</CardDescription>
-              <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                $1,250.00
-              </CardTitle>
-              <CardAction>
-                <Badge variant='outline'>
-                  <IconTrendingUp />
-                  +12.5%
-                </Badge>
-              </CardAction>
+        {/* Nutrition Summary Cards */}
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4'>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Calories</CardTitle>
+              <IconFlame className="h-4 w-4 text-orange-500" />
             </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-              <div className='line-clamp-1 flex gap-2 font-medium'>
-                Trending up this month <IconTrendingUp className='size-4' />
-              </div>
-              <div className='text-muted-foreground'>
-                Visitors for the last 6 months
-              </div>
-            </CardFooter>
+            <CardContent>
+              <div className="text-2xl font-bold">{Math.round(dailyTotals.calories)}</div>
+              <p className="text-xs text-muted-foreground">kcal consumed today</p>
+            </CardContent>
           </Card>
-          <Card className='@container/card'>
-            <CardHeader>
-              <CardDescription>New Customers</CardDescription>
-              <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                1,234
-              </CardTitle>
-              <CardAction>
-                <Badge variant='outline'>
-                  <IconTrendingDown />
-                  -20%
-                </Badge>
-              </CardAction>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Protein</CardTitle>
+              <IconMeat className="h-4 w-4 text-red-500" />
             </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-              <div className='line-clamp-1 flex gap-2 font-medium'>
-                Down 20% this period <IconTrendingDown className='size-4' />
-              </div>
-              <div className='text-muted-foreground'>
-                Acquisition needs attention
-              </div>
-            </CardFooter>
+            <CardContent>
+              <div className="text-2xl font-bold">{Math.round(dailyTotals.protein)}g</div>
+              <p className="text-xs text-muted-foreground">muscle builder</p>
+            </CardContent>
           </Card>
-          <Card className='@container/card'>
-            <CardHeader>
-              <CardDescription>Active Accounts</CardDescription>
-              <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                45,678
-              </CardTitle>
-              <CardAction>
-                <Badge variant='outline'>
-                  <IconTrendingUp />
-                  +12.5%
-                </Badge>
-              </CardAction>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Carbs</CardTitle>
+              <IconGrain className="h-4 w-4 text-yellow-500" />
             </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-              <div className='line-clamp-1 flex gap-2 font-medium'>
-                Strong user retention <IconTrendingUp className='size-4' />
-              </div>
-              <div className='text-muted-foreground'>
-                Engagement exceed targets
-              </div>
-            </CardFooter>
+            <CardContent>
+              <div className="text-2xl font-bold">{Math.round(dailyTotals.carbs)}g</div>
+              <p className="text-xs text-muted-foreground">energy source</p>
+            </CardContent>
           </Card>
-          <Card className='@container/card'>
-            <CardHeader>
-              <CardDescription>Growth Rate</CardDescription>
-              <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                4.5%
-              </CardTitle>
-              <CardAction>
-                <Badge variant='outline'>
-                  <IconTrendingUp />
-                  +4.5%
-                </Badge>
-              </CardAction>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Fat</CardTitle>
+              <IconDroplet className="h-4 w-4 text-blue-500" />
             </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-              <div className='line-clamp-1 flex gap-2 font-medium'>
-                Steady performance increase{' '}
-                <IconTrendingUp className='size-4' />
-              </div>
-              <div className='text-muted-foreground'>
-                Meets growth projections
-              </div>
-            </CardFooter>
+            <CardContent>
+              <div className="text-2xl font-bold">{Math.round(dailyTotals.fat)}g</div>
+              <p className="text-xs text-muted-foreground">essential nutrients</p>
+            </CardContent>
           </Card>
         </div>
+
+        {/* Placeholder for charts - keeping the structure but removing fake data for now */}
+        {/* 
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7'>
           <div className='col-span-4'>{bar_stats}</div>
           <div className='col-span-4 md:col-span-3'>
-            {/* sales arallel routes */}
             {sales}
           </div>
           <div className='col-span-4'>{area_stats}</div>
           <div className='col-span-4 md:col-span-3'>{pie_stats}</div>
+        </div> 
+        */}
+        
+        <div className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
+            Charts coming soon...
         </div>
+
       </div>
     </PageContainer>
   );
