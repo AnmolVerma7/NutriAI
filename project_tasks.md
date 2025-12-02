@@ -35,25 +35,25 @@
 
 ## Day 4-5: AI Agentic Workflow
 
-- [ ] Create UI for AI meal planner feature
-- [ ] Build "Generate Meal Plan" button
-- [ ] Set up Claude API integration
-- [ ] Build Agent 1: Nutrition Analyst
-- [ ] Build Agent 2: Goal Evaluator
-- [ ] Build Agent 3: Meal Planner
-- [ ] Build Agent 4: Recipe Recommender
-- [ ] Implement Conditional Branch 1: Calorie Status
-- [ ] Implement Conditional Branch 2: Dietary Restrictions
-- [ ] Create API route: `/api/ai-meal-plan`
-- [ ] Test the ENTIRE workflow <!-- Manual Test Required -->
+- [x] Create UI for AI meal planner feature
+- [x] Build "Generate Meal Plan" button
+- [x] Set up Claude API integration
+- [x] Build Agent 1: Nutrition Analyst
+- [x] Build Agent 2: Goal Evaluator
+- [x] Build Agent 3: Meal Planner
+- [x] Build Agent 4: Recipe Recommender
+- [x] Implement Conditional Branch 1: Calorie Status
+- [x] Implement Conditional Branch 2: Dietary Restrictions
+- [x] Create API route: `/api/ai-meal-plan`
+- [x] Test the ENTIRE workflow <!-- Manual Test Required -->
 
 ## Day 6: Polish & Features
 
 - [ ] Add progress tracking (weight, calorie trends)
 - [ ] Create charts with Recharts
 - [ ] Add real food images (Unsplash API)
-- [ ] Create user profile settings page
-- [ ] Implement toast notifications
+- [x] Create user profile settings page
+- [x] Implement toast notifications
 - [ ] Test on mobile (responsive fixes) <!-- Manual Test Required -->
 
 ## Day 7: Presentation & Demo

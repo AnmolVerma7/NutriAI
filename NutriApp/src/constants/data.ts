@@ -46,6 +46,22 @@ export const navItems: NavItem[] = [
     items: []
   },
   {
+    title: 'History',
+    url: '/dashboard/history',
+    icon: 'history',
+    isActive: false,
+    shortcut: ['h', 'h'],
+    items: []
+  },
+  {
+    title: 'AI Meal Planner',
+    url: '/dashboard/meal-planner',
+    icon: 'ai',
+    isActive: false,
+    shortcut: ['a', 'i'],
+    items: []
+  },
+  {
     title: 'Product',
     url: '/dashboard/product',
     icon: 'product',

@@ -26,6 +26,7 @@ interface FoodLog {
   carbs_g: number;
   fat_g: number;
   serving_size_g: number;
+  serving_unit?: string;
   created_at: string;
 }
 
@@ -129,7 +130,16 @@ export function RecentMeals({ logs }: RecentMealsProps) {
                     </td>
                     <td className='p-4 align-middle font-medium'>{log.name}</td>
                     <td className='p-4 text-right align-middle'>
-                      {log.serving_size_g}g
+                      {log.serving_unit ? (
+                        <div className='flex flex-col items-end'>
+                          <span>{log.serving_unit}</span>
+                          <span className='text-muted-foreground text-xs'>
+                            ({log.serving_size_g}g)
+                          </span>
+                        </div>
+                      ) : (
+                        `${log.serving_size_g}g`
+                      )}
                     </td>
                     <td className='p-4 text-right align-middle'>
                       {log.calories}

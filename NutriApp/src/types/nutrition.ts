@@ -2,6 +2,7 @@ export interface NutritionData {
   name: string;
   calories: number;
   serving_size_g: number;
+  serving_unit?: string;
   fat_total_g: number;
   fat_saturated_g: number;
   protein_g: number;

@@ -35,7 +35,8 @@ export async function logFoodAction(foodItem: NutritionData) {
     protein_g: foodItem.protein_g,
     carbs_g: foodItem.carbohydrates_total_g,
     fat_g: foodItem.fat_total_g,
-    serving_size_g: foodItem.serving_size_g
+    serving_size_g: foodItem.serving_size_g,
+    serving_unit: foodItem.serving_unit
   });
 
   if (error) {
@@ -167,4 +168,30 @@ export async function clearFoodCacheAction() {
   }
 
   return { success: true };
+}
+import { getAIHelper } from '@/lib/ai-helper';
+
+export async function parseFoodLogAction(input: string) {
+  try {
+    const ai = getAIHelper();
+
+    const systemPrompt = `Extract food items from text into JSON.
+    Output format: { "items": [{ "name": string, "calories": number, "protein_g": number, "carbohydrates_total_g": number, "fat_total_g": number, "serving_size_g": number, "serving_unit": string }] }
+    Instructions:
+    1. Identify the TOTAL quantity consumed (e.g., "2 cups", "2 slices", "100g").
+    2. If the user specifies a count (e.g. "2 burgers"), the serving_unit MUST reflect that count (e.g. "2 burgers").
+    3. Calculate ALL nutrition values for THAT specific TOTAL amount.
+    4. Return the unit as "serving_unit".
+    5. Estimate nutrition if unspecified.`;
+
+    const result = await ai.generateJSON<{ items: NutritionData[] }>(
+      input,
+      systemPrompt
+    );
+
+    return { success: true, data: result.items };
+  } catch (error) {
+    console.error('AI Parse error:', error);
+    return { success: false, error: 'Failed to analyze text' };
+  }
 }

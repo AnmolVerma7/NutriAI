@@ -10,6 +10,23 @@ create table if not exists profiles (
   full_name text,
   avatar_url text,
   website text,
+  
+  -- Fitness & Health Data
+  age integer,
+  gender text check (gender in ('male', 'female', 'other')),
+  height numeric, -- Stored in cm
+  weight numeric, -- Stored in kg
+  goal_weight numeric, -- Stored in kg
+  activity_level text check (activity_level in ('sedentary', 'light', 'moderate', 'active', 'very_active')),
+  dietary_restrictions jsonb default '[]'::jsonb,
+  daily_calorie_goal integer,
+  daily_protein_goal integer,
+  daily_carbs_goal integer,
+  daily_fats_goal integer,
+  
+  -- Preferences
+  preferred_height_unit text default 'cm', -- 'cm' or 'ft'
+  preferred_weight_unit text default 'kg', -- 'kg' or 'lbs'
 
   constraint username_length check (char_length(username) >= 3)
 );
@@ -65,6 +82,7 @@ create table if not exists food_logs (
   carbs_g numeric not null,
   fat_g numeric not null,
   serving_size_g numeric not null,
+  serving_unit text, -- e.g., "1 cup", "2 slices"
   date date default current_date not null,
   created_at timestamp with time zone default now() not null
 );
@@ -154,6 +172,8 @@ begin
     if not exists (select 1 from pg_policies where tablename = 'favorite_recipes' and policyname = 'Users can insert their own favorites') then
         create policy "Users can insert their own favorites" on public.favorite_recipes for insert with check (auth.uid() = user_id);
     end if;
+end
+$$;
 
 
 -- ==========================================
@@ -223,6 +243,40 @@ begin
 
     if not exists (select 1 from pg_policies where tablename = 'favorite_foods' and policyname = 'Users can delete their own favorite foods') then
         create policy "Users can delete their own favorite foods" on public.favorite_foods for delete using (auth.uid() = user_id);
+    end if;
+end
+$$;
+
+
+-- ==========================================
+-- 7. MEAL PLANS
+-- ==========================================
+
+-- Create a table for storing generated meal plans
+create table if not exists public.meal_plans (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references auth.users not null,
+  created_at timestamp with time zone default now() not null,
+  analysis text, -- The high-level summary
+  suggestions jsonb not null -- The array of suggested meals with recipes
+);
+
+-- Enable RLS
+alter table public.meal_plans enable row level security;
+
+-- Policies
+do $$
+begin
+    if not exists (select 1 from pg_policies where tablename = 'meal_plans' and policyname = 'Users can view their own meal plans') then
+        create policy "Users can view their own meal plans" on public.meal_plans for select using (auth.uid() = user_id);
+    end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'meal_plans' and policyname = 'Users can insert their own meal plans') then
+        create policy "Users can insert their own meal plans" on public.meal_plans for insert with check (auth.uid() = user_id);
+    end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'meal_plans' and policyname = 'Users can delete their own meal plans') then
+        create policy "Users can delete their own meal plans" on public.meal_plans for delete using (auth.uid() = user_id);
     end if;
 end
 $$;

@@ -3,6 +3,7 @@
 import PageContainer from '@/components/layout/page-container';
 import { FoodSearch } from '@/features/dashboard/components/food-search';
 import { ManualFoodForm } from '@/features/dashboard/components/manual-food-form';
+import { NaturalLanguageInput } from '@/features/dashboard/components/natural-language-input';
 import { logFoodAction } from '@/features/dashboard/actions';
 import { NutritionData } from '@/types/nutrition';
 import { toast } from 'sonner';
@@ -28,12 +29,16 @@ export default function LogMealPage() {
         </p>
 
         <Tabs defaultValue='search' className='w-full'>
-          <TabsList className='grid w-full grid-cols-2'>
+          <TabsList className='grid w-full grid-cols-3'>
             <TabsTrigger value='search'>Search Database</TabsTrigger>
+            <TabsTrigger value='ai'>AI Log ✨</TabsTrigger>
             <TabsTrigger value='manual'>Manual Entry</TabsTrigger>
           </TabsList>
           <TabsContent value='search' className='mt-4'>
             <FoodSearch onSelect={handleSelectFood} />
+          </TabsContent>
+          <TabsContent value='ai' className='mt-4'>
+            <NaturalLanguageInput />
           </TabsContent>
           <TabsContent value='manual' className='mt-4'>
             <ManualFoodForm />
