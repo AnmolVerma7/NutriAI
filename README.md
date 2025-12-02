@@ -99,6 +99,7 @@ Once the server starts, open your web browser and visit:
 - **Database:** Supabase (PostgreSQL)
 - **Authentication:** Supabase Auth
 - **APIs:**
+  - **Anthropic Claude 3.5 Sonnet:** AI Agent Orchestration
   - **FatSecret:** Nutrition Data (OAuth 2.0)
   - **Spoonacular:** Recipe Search & Details
 
@@ -112,6 +113,17 @@ Once the server starts, open your web browser and visit:
 - **⚙️ Settings:** Manage preferences and edit your profile/goals.
 - **⚡ Smart Caching:** Minimizes API usage by caching recipes and food searches in Supabase.
 - **📊 Dashboard:** View your daily progress and recent activities.
+
+## 🧠 AI Architecture
+
+NutriAI employs a sophisticated **Multi-Agent System** to deliver personalized nutrition advice:
+
+1.  **Nutrition Analyst:** Analyzes your daily food logs to identify nutritional gaps.
+2.  **Goal Evaluator:** Compares your intake against your specific profile goals (calories, macros).
+3.  **Meal Planner:** Formulates a high-level meal strategy based on remaining budget and dietary restrictions.
+4.  **Recipe Recommender:** Finds concrete, executable recipes that match the planner's strategy.
+
+_For a deep dive into the AI implementation, check out the [Claude API Guide](docs/CLAUDE_API_GUIDE.md)._
 
 ## Documentation
 
