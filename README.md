@@ -129,6 +129,7 @@ _For a deep dive into the AI implementation, check out the [Claude API Guide](do
 
 - [API Reference](docs/API_REFERENCE.md)
 - [Claude API Guide](docs/CLAUDE_API_GUIDE.md)
+- [Deployment Guide](docs/DEPLOYMENT.md)
 
 ## Contributing
 
