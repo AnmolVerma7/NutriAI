@@ -1,6 +1,6 @@
 # NutriAI
 
-NutriAI is an AI-powered nutrition tracking application designed to simplify meal logging and health monitoring. It leverages Next.js 16, Supabase for authentication and data storage, and the API Ninjas Nutrition API for natural language food processing.
+NutriAI is an AI-powered nutrition tracking application designed to simplify meal logging and health monitoring. It leverages Next.js 16, Supabase for authentication and data storage, and the FatSecret Platform API for robust food data.
 
 ## Prerequisites
 
@@ -53,7 +53,7 @@ npm install
 
 ### 4. Configure Environment Variables
 
-The application needs specific keys to connect to external services (Supabase and API Ninjas).
+The application needs specific keys to connect to external services (Supabase, FatSecret, Spoonacular).
 
 1.  Create a file named `.env.local` in the `NutriApp` directory.
 2.  Copy and paste the following content into the file:
@@ -63,8 +63,9 @@ The application needs specific keys to connect to external services (Supabase an
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-# API Ninjas (Food Search)
-CALORIE_NINJAS_API_KEY=your_api_ninjas_key
+# FatSecret (Food Search)
+FATSECRET_CLIENT_ID=your_client_id
+FATSECRET_CLIENT_SECRET=your_client_secret
 
 # Spoonacular (Recipes)
 SPOONACULAR_API_KEY=your_spoonacular_key
@@ -98,16 +99,16 @@ Once the server starts, open your web browser and visit:
 - **Database:** Supabase (PostgreSQL)
 - **Authentication:** Supabase Auth
 - **APIs:**
-  - **API Ninjas:** Nutrition Data
+  - **FatSecret:** Nutrition Data (OAuth 2.0)
   - **Spoonacular:** Recipe Search & Details
 
 ## Key Features
 
 - **🍎 Smart Meal Logging:** Search for foods or manually enter details.
 - **🍳 Recipe Discovery:** Browse thousands of recipes with filters (Diet, Calories, etc.).
-- **❤️ Favorites System:** Save your favorite recipes for quick access.
+- **❤️ Favorites System:** Save your favorite recipes and foods for quick access.
 - **⚙️ Settings:** Manage preferences like "Confirm before delete".
-- **⚡ Smart Caching:** Minimizes API usage by caching recipes in Supabase.
+- **⚡ Smart Caching:** Minimizes API usage by caching recipes and food searches in Supabase.
 - **📊 Dashboard:** View your daily progress and recent activities.
 
 ## Contributing

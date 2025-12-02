@@ -1,25 +1,18 @@
 # API Reference - NutriAI
 
-We use [API Ninjas](https://api-ninjas.com/) for our data sources.
-
-## Authentication
-
-All requests require an `X-Api-Key` header.
-
-- **Key:** Stored in `CALORIE_NINJAS_API_KEY` (in `.env.local`)
-- **Base URL:** `https://api.api-ninjas.com/v1`
+We use robust data sources for our nutrition and recipe data.
 
 ## Integrated APIs
 
-### 1. Nutrition API
+### 1. FatSecret Platform API
 
 **Status:** ✅ Integrated
 
-- **Endpoint:** `/nutrition`
-- **Method:** `GET`
-- **Query:** `query` (string, e.g., "3 eggs and an apple")
-- **Description:** Extracts nutrition data from natural language text.
-- **Usage:** Used in Dashboard Overview for food search.
+- **Endpoint:** `/rest/foods/search/v1`
+- **Method:** `GET` (via OAuth 2.0)
+- **Query:** `search_expression`
+- **Description:** Search for food items and parse nutrition from description.
+- **Usage:** Used in "Log Meal" -> "Search Database".
 
 ### 2. Spoonacular API (Recipes)
 
