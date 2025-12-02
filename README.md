@@ -104,12 +104,19 @@ Once the server starts, open your web browser and visit:
 
 ## Key Features
 
+- **🤖 AI Meal Planner:** Intelligent multi-agent system (powered by Claude 3.5) that generates personalized meal plans based on your goals and leftovers.
+- **👤 Smart Onboarding:** Dedicated wizard to set up your profile, goals, and unit preferences (cm/ft, kg/lbs).
 - **🍎 Smart Meal Logging:** Search for foods or manually enter details.
 - **🍳 Recipe Discovery:** Browse thousands of recipes with filters (Diet, Calories, etc.).
 - **❤️ Favorites System:** Save your favorite recipes and foods for quick access.
-- **⚙️ Settings:** Manage preferences like "Confirm before delete".
+- **⚙️ Settings:** Manage preferences and edit your profile/goals.
 - **⚡ Smart Caching:** Minimizes API usage by caching recipes and food searches in Supabase.
 - **📊 Dashboard:** View your daily progress and recent activities.
+
+## Documentation
+
+- [API Reference](docs/API_REFERENCE.md)
+- [Claude API Guide](docs/CLAUDE_API_GUIDE.md)
 
 ## Contributing
 

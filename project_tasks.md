@@ -49,16 +49,26 @@
 
 ## Day 6: Polish & Features
 
-- [ ] Add progress tracking (weight, calorie trends)
-- [ ] Create charts with Recharts
-- [ ] Add real food images (Unsplash API)
-- [x] Create user profile settings page
-- [x] Implement toast notifications
-- [ ] Test on mobile (responsive fixes) <!-- Manual Test Required -->
+- [ ] **Progress Tracking**
+  - [ ] Create `user_progress` table (date, weight, calories, macros)
+  - [ ] Build "Progress" page with Recharts (Weight trend, Calorie adherence)
+- [ ] **Mobile Responsiveness**
+  - [ ] Test Dashboard on mobile view
+  - [ ] Fix any overflow or layout issues
+- [x] **User Profile & Settings**
+  - [x] Create user profile settings page
+  - [x] Implement toast notifications
+- [ ] **Visual Polish**
+  - [ ] Add real food images (Unsplash API or static assets)
+  - [ ] Add loading skeletons for all data fetching states
 
 ## Day 7: Presentation & Demo
 
-- [ ] Create presentation deck
-- [ ] Record demo video
-- [ ] Write 1-page Idea Explanation document
-- [ ] Final deployment check
+- [ ] **Deliverables**
+  - [ ] Write 1-page Idea Explanation document
+  - [ ] Create presentation deck (6 slides)
+  - [ ] Record 2-3 minute demo video
+- [ ] **Final Checks**
+  - [ ] Final deployment check on Vercel
+  - [ ] Verify all 4 agents and 2 conditionals are working
+  - [ ] Verify real data integration (Nutritionix/FatSecret, Spoonacular)

@@ -23,7 +23,18 @@ We use robust data sources for our nutrition and recipe data.
 - **Features:**
   - **Recipe Search:** Search by query, diet, and nutritional limits.
   - **Recipe Information:** Get detailed ingredients, instructions, and nutrition.
+  - **Recipe Information:** Get detailed ingredients, instructions, and nutrition.
   - **Bulk Fetch:** Get details for multiple recipes at once (used for Favorites).
+
+### 3. Anthropic Claude API (AI Agents)
+
+**Status:** ✅ Integrated
+
+- **Model:** `claude-3-5-sonnet-20241022`
+- **Usage:** Powers the 4-agent workflow for meal planning.
+- **Endpoint:** `/api/ai-meal-plan`
+- **Method:** `POST`
+- **Response:** Server-Sent Events (SSE) stream.
 
 ## Planned APIs (Future Integration)
 
