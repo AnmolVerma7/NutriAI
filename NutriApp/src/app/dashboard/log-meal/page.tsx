@@ -4,7 +4,7 @@ import PageContainer from '@/components/layout/page-container';
 import { FoodSearch } from '@/features/dashboard/components/food-search';
 import { ManualFoodForm } from '@/features/dashboard/components/manual-food-form';
 import { logFoodAction } from '@/features/dashboard/actions';
-import { NutritionData } from '@/lib/calorie-ninjas';
+import { NutritionData } from '@/types/nutrition';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 

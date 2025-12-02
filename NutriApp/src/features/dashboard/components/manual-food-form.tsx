@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { logFoodAction } from '@/features/dashboard/actions';
 import { toast } from 'sonner';
-import { NutritionData } from '@/lib/calorie-ninjas';
+import { NutritionData } from '@/types/nutrition';
 import { cn } from '@/lib/utils';
 import { Check, Search as SearchIcon, X } from 'lucide-react';
 import {

@@ -87,7 +87,7 @@ export function RecentMeals({ logs }: RecentMealsProps) {
               <thead className='[&_tr]:border-b'>
                 <tr className='hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors'>
                   <th className='text-muted-foreground h-12 px-4 text-left align-middle font-medium'>
-                    Time
+                    Date
                   </th>
                   <th className='text-muted-foreground h-12 px-4 text-left align-middle font-medium'>
                     Food
@@ -119,8 +119,11 @@ export function RecentMeals({ logs }: RecentMealsProps) {
                     className='hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors'
                   >
                     <td className='p-4 align-middle'>
-                      {new Date(log.created_at).toLocaleTimeString([], {
-                        hour: '2-digit',
+                      {new Date(log.created_at).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour: 'numeric',
                         minute: '2-digit'
                       })}
                     </td>

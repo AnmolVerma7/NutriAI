@@ -15,12 +15,14 @@ import { ArrowLeft, Trash2, Save, Database } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { clearCacheAction } from '@/features/dashboard/actions/recipes';
+import { clearFoodCacheAction } from '@/features/dashboard/actions';
 import PageContainer from '@/components/layout/page-container';
 
 export default function SettingsPage() {
   const router = useRouter();
   const [confirmDelete, setConfirmDelete] = useState(true);
   const [isClearing, setIsClearing] = useState(false);
+  const [isClearingFood, setIsClearingFood] = useState(false);
 
   useEffect(() => {
     const storedPref = localStorage.getItem('nutri-confirm-delete');
@@ -40,14 +42,30 @@ export default function SettingsPage() {
     try {
       const result = await clearCacheAction();
       if (result.success) {
-        toast.success('Cache cleared successfully! Favorites were preserved.');
+        toast.success('Recipe cache cleared successfully!');
       } else {
-        toast.error(result.error || 'Failed to clear cache');
+        toast.error(result.error || 'Failed to clear recipe cache');
       }
     } catch (error) {
       toast.error('An error occurred');
     } finally {
       setIsClearing(false);
+    }
+  };
+
+  const handleClearFoodCache = async () => {
+    setIsClearingFood(true);
+    try {
+      const result = await clearFoodCacheAction();
+      if (result.success) {
+        toast.success('Food search cache cleared successfully!');
+      } else {
+        toast.error(result.error || 'Failed to clear food cache');
+      }
+    } catch (error) {
+      toast.error('An error occurred');
+    } finally {
+      setIsClearingFood(false);
     }
   };
 
@@ -102,8 +120,8 @@ export default function SettingsPage() {
             <CardContent className='space-y-4'>
               <div className='bg-muted text-muted-foreground rounded-md p-4 text-sm'>
                 <p className='mb-2'>
-                  <strong>Clear Cached Data:</strong> This will remove all
-                  non-favorited recipes from the database cache.
+                  <strong>Clear Cached Data:</strong> This will remove cached
+                  data from the database.
                 </p>
                 <ul className='list-disc space-y-1 pl-4'>
                   <li>
@@ -112,20 +130,26 @@ export default function SettingsPage() {
                   <li>
                     Your <strong>Meal Logs</strong> will be safe. 🥗
                   </li>
-                  <li>
-                    Recently visited history (browser) will remain, but details
-                    will be re-fetched on click.
-                  </li>
                 </ul>
               </div>
-              <Button
-                variant='destructive'
-                onClick={handleClearCache}
-                disabled={isClearing}
-                className='w-full sm:w-auto'
-              >
-                {isClearing ? 'Clearing...' : 'Clear Cached Data'}
-              </Button>
+              <div className='flex flex-col gap-4 sm:flex-row'>
+                <Button
+                  variant='destructive'
+                  onClick={handleClearCache}
+                  disabled={isClearing}
+                  className='w-full sm:w-auto'
+                >
+                  {isClearing ? 'Clearing...' : 'Clear Recipe Cache'}
+                </Button>
+                <Button
+                  variant='destructive'
+                  onClick={handleClearFoodCache}
+                  disabled={isClearingFood}
+                  className='w-full sm:w-auto'
+                >
+                  {isClearingFood ? 'Clearing...' : 'Clear Food Search Cache'}
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>

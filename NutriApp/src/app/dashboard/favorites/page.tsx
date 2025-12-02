@@ -1,4 +1,5 @@
 import { getFavoriteRecipesAction } from '@/features/dashboard/actions/recipes';
+import { getFavoriteFoodsAction } from '@/features/dashboard/actions';
 import { FavoritesView } from '@/features/dashboard/components/favorites-view';
 import PageContainer from '@/components/layout/page-container';
 
@@ -7,12 +8,20 @@ export const metadata = {
 };
 
 export default async function FavoritesPage() {
-  const result = await getFavoriteRecipesAction();
-  const favorites = result.success && result.data ? result.data : [];
+  const [recipesResult, favoriteFoods] = await Promise.all([
+    getFavoriteRecipesAction(),
+    getFavoriteFoodsAction()
+  ]);
+
+  const favoriteRecipes =
+    recipesResult.success && recipesResult.data ? recipesResult.data : [];
 
   return (
     <PageContainer>
-      <FavoritesView initialData={favorites} />
+      <FavoritesView
+        initialRecipes={favoriteRecipes}
+        initialFoods={favoriteFoods}
+      />
     </PageContainer>
   );
 }

@@ -121,6 +121,10 @@ begin
     if not exists (select 1 from pg_policies where tablename = 'recipes' and policyname = 'Authenticated users can update recipes.') then
         create policy "Authenticated users can update recipes." on recipes for update using (auth.role() = 'authenticated');
     end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'recipes' and policyname = 'Authenticated users can delete recipes.') then
+        create policy "Authenticated users can delete recipes." on recipes for delete using (auth.role() = 'authenticated');
+    end if;
 end
 $$;
 
@@ -151,8 +155,74 @@ begin
         create policy "Users can insert their own favorites" on public.favorite_recipes for insert with check (auth.uid() = user_id);
     end if;
 
-    if not exists (select 1 from pg_policies where tablename = 'favorite_recipes' and policyname = 'Users can delete their own favorites') then
-        create policy "Users can delete their own favorites" on public.favorite_recipes for delete using (auth.uid() = user_id);
+
+-- ==========================================
+-- 5. FOOD SEARCH CACHE
+-- ==========================================
+
+-- Create a table for caching food search results
+create table if not exists food_search_cache (
+  query text primary key, -- Normalized query string (lowercase, trimmed)
+  results jsonb not null, -- Stores the list of NutritionData objects
+  created_at timestamp with time zone default now() not null
+);
+
+-- Enable RLS
+alter table food_search_cache enable row level security;
+
+-- Policies
+do $$
+begin
+    if not exists (select 1 from pg_policies where tablename = 'food_search_cache' and policyname = 'Cache is viewable by everyone.') then
+        create policy "Cache is viewable by everyone." on food_search_cache for select using (true);
+    end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'food_search_cache' and policyname = 'Authenticated users can insert cache.') then
+        create policy "Authenticated users can insert cache." on food_search_cache for insert with check (auth.role() = 'authenticated');
+    end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'food_search_cache' and policyname = 'Authenticated users can update cache.') then
+        create policy "Authenticated users can update cache." on food_search_cache for update using (auth.role() = 'authenticated');
+    end if;
+    
+    if not exists (select 1 from pg_policies where tablename = 'food_search_cache' and policyname = 'Authenticated users can delete cache.') then
+        create policy "Authenticated users can delete cache." on food_search_cache for delete using (auth.role() = 'authenticated');
+    end if;
+end
+$$;
+
+
+-- ==========================================
+-- 6. FAVORITE FOODS
+-- ==========================================
+
+-- Create a table for favorite foods
+create table if not exists public.favorite_foods (
+  user_id uuid references auth.users not null,
+  food_id text not null, -- FatSecret ID or unique name if ID missing
+  name text not null,
+  calories numeric not null,
+  macros jsonb not null, -- Stores protein, carbs, fat, etc.
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  primary key (user_id, food_id)
+);
+
+-- Enable RLS
+alter table public.favorite_foods enable row level security;
+
+-- Policies
+do $$
+begin
+    if not exists (select 1 from pg_policies where tablename = 'favorite_foods' and policyname = 'Users can view their own favorite foods') then
+        create policy "Users can view their own favorite foods" on public.favorite_foods for select using (auth.uid() = user_id);
+    end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'favorite_foods' and policyname = 'Users can insert their own favorite foods') then
+        create policy "Users can insert their own favorite foods" on public.favorite_foods for insert with check (auth.uid() = user_id);
+    end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'favorite_foods' and policyname = 'Users can delete their own favorite foods') then
+        create policy "Users can delete their own favorite foods" on public.favorite_foods for delete using (auth.uid() = user_id);
     end if;
 end
 $$;

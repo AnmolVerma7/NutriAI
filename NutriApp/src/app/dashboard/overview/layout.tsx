@@ -46,13 +46,27 @@ export default async function OverViewLayout({
   let logs: any[] | null = null;
 
   if (user) {
-    const today = new Date().toISOString().split('T')[0];
+    // Adjust for timezone (UTC-7 for MST/PDT coverage)
+    // We want logs where the LOCAL time is "today".
+    // So we query from Today 00:00 MST (Today 07:00 UTC) to Tomorrow 00:00 MST (Tomorrow 07:00 UTC)
+    const now = new Date();
+    now.setHours(now.getHours() - 7); // Shift to user's local time to get "today" string
+    const todayStr = now.toISOString().split('T')[0];
+
+    // Create UTC boundaries for the query
+    const startUtc = new Date(`${todayStr}T07:00:00.000Z`).toISOString();
+
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowStr = tomorrow.toISOString().split('T')[0];
+    const endUtc = new Date(`${tomorrowStr}T07:00:00.000Z`).toISOString();
+
     const { data: fetchedLogs } = await supabase
       .from('food_logs')
       .select('*')
       .eq('user_id', user.id)
-      .gte('created_at', `${today}T00:00:00`)
-      .lte('created_at', `${today}T23:59:59`);
+      .gte('created_at', startUtc)
+      .lt('created_at', endUtc);
 
     logs = fetchedLogs;
 

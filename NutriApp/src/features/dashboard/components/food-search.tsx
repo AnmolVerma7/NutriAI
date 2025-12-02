@@ -1,12 +1,15 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
-import { searchFoodAction } from '../actions';
+import { useState, useEffect } from 'react';
+import {
+  searchFoodAction,
+  toggleFavoriteFoodAction,
+  getFavoriteFoodsAction
+} from '../actions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Heart } from 'lucide-react';
 
-import { NutritionData } from '@/lib/calorie-ninjas';
+import { NutritionData } from '@/types/nutrition';
 
 interface FoodSearchProps {
   onSelect?: (item: NutritionData) => void;
@@ -17,6 +20,14 @@ export function FoodSearch({ onSelect }: FoodSearchProps) {
   const [results, setResults] = useState<NutritionData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    // Load favorites on mount
+    getFavoriteFoodsAction().then((favs) => {
+      setFavorites(new Set(favs.map((f) => f.name)));
+    });
+  }, []);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,6 +47,19 @@ export function FoodSearch({ onSelect }: FoodSearchProps) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleFavorite = async (item: NutritionData) => {
+    const isFav = favorites.has(item.name);
+    const newFavs = new Set(favorites);
+    if (isFav) {
+      newFavs.delete(item.name);
+    } else {
+      newFavs.add(item.name);
+    }
+    setFavorites(newFavs); // Optimistic update
+
+    await toggleFavoriteFoodAction(item, !isFav);
   };
 
   return (
@@ -58,9 +82,21 @@ export function FoodSearch({ onSelect }: FoodSearchProps) {
 
       <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
         {results.map((item, index) => (
-          <Card key={index}>
+          <Card key={index} className='group relative'>
+            <button
+              onClick={() => toggleFavorite(item)}
+              className='absolute top-2 right-2 z-10 rounded-full bg-white/80 p-2 transition-colors hover:bg-white'
+            >
+              <Heart
+                className={`h-5 w-5 transition-colors ${
+                  favorites.has(item.name)
+                    ? 'fill-red-500 text-red-500'
+                    : 'text-gray-400 hover:text-red-500'
+                }`}
+              />
+            </button>
             <CardHeader>
-              <CardTitle className='capitalize'>{item.name}</CardTitle>
+              <CardTitle className='pr-8 capitalize'>{item.name}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className='space-y-1 text-sm'>
