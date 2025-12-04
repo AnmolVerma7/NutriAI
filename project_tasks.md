@@ -49,18 +49,18 @@
 
 ## Day 6: Polish & Features
 
-- [ ] **Progress Tracking**
-  - [ ] Create `user_progress` table (date, weight, calories, macros)
-  - [ ] Build "Progress" page with Recharts (Weight trend, Calorie adherence)
-- [ ] **Mobile Responsiveness**
-  - [ ] Test Dashboard on mobile view
-  - [ ] Fix any overflow or layout issues
-- [x] **User Profile & Settings**
-  - [x] Create user profile settings page
-  - [x] Implement toast notifications
-- [ ] **Visual Polish**
-  - [ ] Add real food images (Unsplash API or static assets)
-  - [ ] Add loading skeletons for all data fetching states
+- [ ] **Progress Tracking** <!-- id: 55 -->
+  - [ ] Create `user_progress` table schema <!-- id: 56 -->
+  - [ ] Create server actions for fetching/logging progress <!-- id: 57 -->
+  - [ ] Build Progress Page with Recharts (Weight & Calories) <!-- id: 58 -->
+  - [ ] Create Data Seeding Script (Fake data for demo) <!-- id: 59 -->
+  - [ ] Add "Progress" link to Sidebar <!-- id: 60 -->
+- [ ] **Mobile Responsiveness** <!-- id: 61 -->
+  - [ ] Test Dashboard on mobile view <!-- id: 62 -->
+  - [ ] Fix any overflow or layout issues <!-- id: 63 -->
+- [ ] **Visual Polish** <!-- id: 64 -->
+  - [ ] Add real food images (Unsplash API or static assets) <!-- id: 65 -->
+  - [ ] Add loading skeletons for all data fetching states <!-- id: 66 -->
 
 ## Day 7: Presentation & Demo
 

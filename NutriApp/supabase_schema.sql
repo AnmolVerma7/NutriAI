@@ -280,3 +280,45 @@ begin
     end if;
 end
 $$;
+
+-- ==========================================
+-- 8. USER PROGRESS
+-- ==========================================
+
+-- Create user_progress table
+CREATE TABLE IF NOT EXISTS user_progress (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  date DATE NOT NULL,
+  weight NUMERIC,
+  calories INTEGER,
+  protein INTEGER,
+  carbs INTEGER,
+  fats INTEGER,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, date)
+);
+
+-- Enable RLS
+ALTER TABLE user_progress ENABLE ROW LEVEL SECURITY;
+
+-- Policies
+do $$
+begin
+    if not exists (select 1 from pg_policies where tablename = 'user_progress' and policyname = 'Users can view their own progress') then
+        create policy "Users can view their own progress" on user_progress for select using (auth.uid() = user_id);
+    end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'user_progress' and policyname = 'Users can insert their own progress') then
+        create policy "Users can insert their own progress" on user_progress for insert with check (auth.uid() = user_id);
+    end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'user_progress' and policyname = 'Users can update their own progress') then
+        create policy "Users can update their own progress" on user_progress for update using (auth.uid() = user_id);
+    end if;
+
+    if not exists (select 1 from pg_policies where tablename = 'user_progress' and policyname = 'Users can delete their own progress') then
+        create policy "Users can delete their own progress" on user_progress for delete using (auth.uid() = user_id);
+    end if;
+end
+$$;

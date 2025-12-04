@@ -54,6 +54,14 @@ export const navItems: NavItem[] = [
     items: []
   },
   {
+    title: 'Progress',
+    url: '/dashboard/progress',
+    icon: 'billing', // Using 'billing' as a placeholder for a chart icon if 'chart' isn't available, or we can add a new icon later.
+    isActive: false,
+    shortcut: ['p', 'r'],
+    items: []
+  },
+  {
     title: 'AI Meal Planner',
     url: '/dashboard/meal-planner',
     icon: 'ai',
