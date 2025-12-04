@@ -24,7 +24,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Log Meal',
     url: '/dashboard/log-meal',
-    icon: 'pizza',
+    icon: 'clipboard',
     isActive: false,
     shortcut: ['l', 'm'],
     items: []
@@ -32,7 +32,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Recipes',
     url: '/dashboard/recipes',
-    icon: 'pizza',
+    icon: 'chefHat',
     isActive: false,
     shortcut: ['r', 's'],
     items: []
@@ -46,7 +46,7 @@ export const navItems: NavItem[] = [
     items: []
   },
   {
-    title: 'History',
+    title: 'Meal History',
     url: '/dashboard/history',
     icon: 'history',
     isActive: false,
@@ -68,23 +68,6 @@ export const navItems: NavItem[] = [
     isActive: false,
     shortcut: ['a', 'i'],
     items: []
-  },
-  {
-    title: 'Product',
-    url: '/dashboard/product',
-    icon: 'product',
-    shortcut: ['p', 'p'],
-    isActive: false,
-    items: [] // No child items
-  },
-
-  {
-    title: 'Kanban',
-    url: '/dashboard/kanban',
-    icon: 'kanban',
-    shortcut: ['k', 'k'],
-    isActive: false,
-    items: [] // No child items
   }
 ];
 

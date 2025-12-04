@@ -33,7 +33,9 @@ import {
   IconBrandGithub,
   IconHeart,
   IconHistory,
-  IconSparkles
+  IconSparkles,
+  IconChefHat,
+  IconClipboardList
 } from '@tabler/icons-react';
 
 export type Icon = React.ComponentType<IconProps>;
@@ -72,5 +74,7 @@ export const Icons = {
   check: IconCheck,
   heart: IconHeart,
   history: IconHistory,
-  ai: IconSparkles
+  ai: IconSparkles,
+  chefHat: IconChefHat,
+  clipboard: IconClipboardList
 };
