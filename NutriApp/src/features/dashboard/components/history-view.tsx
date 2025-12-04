@@ -107,25 +107,25 @@ export function HistoryView({ logs }: HistoryViewProps) {
                 <table className='w-full caption-bottom text-sm'>
                   <thead className='[&_tr]:border-b'>
                     <tr className='hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors'>
-                      <th className='text-muted-foreground h-12 px-4 text-left align-middle font-medium'>
+                      <th className='text-muted-foreground hidden h-12 px-4 text-left align-middle font-medium md:table-cell'>
                         Time
                       </th>
                       <th className='text-muted-foreground h-12 px-4 text-left align-middle font-medium'>
                         Food
                       </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
+                      <th className='text-muted-foreground hidden h-12 px-4 text-right align-middle font-medium md:table-cell'>
                         Serving (g)
                       </th>
                       <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
                         Calories
                       </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
+                      <th className='text-muted-foreground hidden h-12 px-4 text-right align-middle font-medium md:table-cell'>
                         Protein
                       </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
+                      <th className='text-muted-foreground hidden h-12 px-4 text-right align-middle font-medium md:table-cell'>
                         Carbs
                       </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
+                      <th className='text-muted-foreground hidden h-12 px-4 text-right align-middle font-medium md:table-cell'>
                         Fat
                       </th>
                       <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
@@ -139,7 +139,7 @@ export function HistoryView({ logs }: HistoryViewProps) {
                         key={log.id}
                         className='hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors'
                       >
-                        <td className='p-4 align-middle'>
+                        <td className='hidden p-4 align-middle md:table-cell'>
                           {new Date(log.created_at).toLocaleTimeString(
                             'en-US',
                             {
@@ -150,20 +150,29 @@ export function HistoryView({ logs }: HistoryViewProps) {
                         </td>
                         <td className='p-4 align-middle font-medium'>
                           {log.name}
+                          <div className='text-muted-foreground block text-xs md:hidden'>
+                            {new Date(log.created_at).toLocaleTimeString(
+                              'en-US',
+                              {
+                                hour: 'numeric',
+                                minute: '2-digit'
+                              }
+                            )}
+                          </div>
                         </td>
-                        <td className='p-4 text-right align-middle'>
+                        <td className='hidden p-4 text-right align-middle md:table-cell'>
                           {log.serving_size_g}g
                         </td>
                         <td className='p-4 text-right align-middle'>
                           {log.calories}
                         </td>
-                        <td className='p-4 text-right align-middle'>
+                        <td className='hidden p-4 text-right align-middle md:table-cell'>
                           {log.protein_g}g
                         </td>
-                        <td className='p-4 text-right align-middle'>
+                        <td className='hidden p-4 text-right align-middle md:table-cell'>
                           {log.carbs_g}g
                         </td>
-                        <td className='p-4 text-right align-middle'>
+                        <td className='hidden p-4 text-right align-middle md:table-cell'>
                           {log.fat_g}g
                         </td>
                         <td className='p-4 text-right align-middle'>
