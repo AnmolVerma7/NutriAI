@@ -12,7 +12,7 @@ import {
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { ArrowLeft, Trash2, Save, Database, Palette } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { clearCacheAction } from '@/features/dashboard/actions/recipes';
 import { ThemeSelector } from '@/components/theme-selector';
@@ -24,6 +24,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function SettingsPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const defaultTab = searchParams.get('tab') || 'app';
+  
   const [confirmDelete, setConfirmDelete] = useState(true);
   const [isClearing, setIsClearing] = useState(false);
 
@@ -71,7 +74,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <Tabs defaultValue='app' className='w-full'>
+        <Tabs defaultValue={defaultTab} className='w-full'>
           <TabsList className='mb-8 grid w-full grid-cols-2'>
             <TabsTrigger value='app'>App Settings</TabsTrigger>
             <TabsTrigger value='profile'>Profile & Goals</TabsTrigger>

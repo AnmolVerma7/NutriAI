@@ -67,7 +67,7 @@ export default async function ProfileViewPage() {
           </div>
         </div>
         <Button variant='outline' size='sm' asChild>
-          <Link href='/settings'>
+          <Link href='/settings?tab=profile'>
             <Settings className='mr-2 h-4 w-4' />
             Edit Profile
           </Link>
