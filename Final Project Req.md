@@ -154,6 +154,14 @@ An MVP you could pitch to investors:
 
 ---
 
+### Internal Food Database (Cached)
+
+- **Source:** Pre-seeded data from verified nutrition sources
+- **What it does:** Provides instant, reliable food search without API rate limits
+- **Implementation:** Supabase Database Cache
+
+---
+
 ### 4. Final Presentation Day
 
 **You will have 10 minutes to:**

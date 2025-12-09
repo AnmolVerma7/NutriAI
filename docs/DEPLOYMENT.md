@@ -37,7 +37,6 @@ For the application to function correctly, you **MUST** configure the following 
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `ANTHROPIC_API_KEY`
 - `SPOONACULAR_API_KEY`
-- `FATSECRET_CLIENT_ID`
-- `FATSECRET_CLIENT_SECRET`
+- `SPOONACULAR_API_KEY`
 
 Go to **Settings** > **Environment Variables** on Vercel to add them.
