@@ -46,6 +46,14 @@ body {
     --primary: var(--color-blue-500);
     --primary-foreground: var(--color-blue-50);
   }
+
+  --sidebar-primary: var(--color-blue-600);
+  --sidebar-primary-foreground: var(--color-blue-50);
+
+  @variant dark {
+    --sidebar-primary: var(--color-blue-500);
+    --sidebar-primary-foreground: var(--color-blue-50);
+  }
 }
 
 .theme-green,
@@ -57,6 +65,14 @@ body {
     --primary: var(--color-lime-600);
     --primary-foreground: var(--color-lime-50);
   }
+
+  --sidebar-primary: var(--color-lime-600);
+  --sidebar-primary-foreground: var(--color-lime-50);
+
+  @variant dark {
+    --sidebar-primary: var(--color-lime-600);
+    --sidebar-primary-foreground: var(--color-lime-50);
+  }
 }
 
 .theme-amber,
@@ -67,6 +83,29 @@ body {
   @variant dark {
     --primary: var(--color-amber-500);
     --primary-foreground: var(--color-amber-50);
+  }
+
+  --sidebar-primary: var(--color-amber-600);
+  --sidebar-primary-foreground: var(--color-amber-50);
+
+  @variant dark {
+    --sidebar-primary: var(--color-amber-500);
+    --sidebar-primary-foreground: var(--color-amber-50);
+  }
+}
+
+.theme-red,
+.theme-red-scaled {
+  --primary: var(--color-red-600);
+  --primary-foreground: var(--color-red-50);
+  --sidebar-primary: var(--color-red-600);
+  --sidebar-primary-foreground: var(--color-red-50);
+
+  @variant dark {
+    --primary: var(--color-red-500);
+    --primary-foreground: var(--color-red-50);
+    --sidebar-primary: var(--color-red-500);
+    --sidebar-primary-foreground: var(--color-red-50);
   }
 }
 
