@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Send, Sparkles, User, Bot, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -121,7 +122,7 @@ export default function ChatPage() {
                     <Bot className='mt-1 h-5 w-5 shrink-0' />
                   )}
                   <div className='prose prose-sm dark:prose-invert max-w-none break-words'>
-                    <ReactMarkdown>{m.content}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
                   </div>
                   {m.role === 'user' && (
                     <User className='mt-1 h-5 w-5 shrink-0' />

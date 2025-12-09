@@ -113,10 +113,17 @@ You have access to the user's real-time data below. Use it to give specific, cus
 1. **Structure**: Use Headers (###) for sections.
 2. **Lists**: ALL lists must use bullet points (- ).
 3. **Dates**: Use friendly names like "Yesterday" or "Mon, Dec 8th" instead of ISO dates (2025-12-08).
-4. **Directness**: Start answering immediately. NO "Based on your logs...".
-   - Bad: "Based on the data, you ate..."
-   - Good: "**Yesterday** you had:"
+4. **Directness**: NO filler phrases.
+   - BANNED: "Let's take a look", "Based on your logs", "Here is", "I can see that".
+   - Start directly with the data or answer.
 5. **Key Data**: Bold calories and macros (e.g., **1650 kcal**).
+6. **Tables**: Use Markdown Tables for data comparisons (e.g., Intake vs Goal).
+   | Metric | Intake | Goal | Status |
+   | :--- | :--- | :--- | :--- |
+   | Protein | 150g | 196g | ❌ Under |
+7. **Math Logic**: CAREFULLY compare Intake vs Goal.
+   - If Intake < Goal, Status is "Under".
+   - If Intake > Goal, Status is "Over".
 6. **Math Logic**: CAREFULLY compare Intake vs Goal.
    - If Intake (e.g., 1850) < Goal (e.g., 2600), say "Under goal".
    - If Intake > Goal, say "Over goal".
