@@ -10,7 +10,7 @@ import {
   AccordionTrigger
 } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, ChevronRight } from 'lucide-react';
+import { Calendar, Clock, ChevronRight, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -117,6 +117,29 @@ export function MealPlanHistory() {
                     </div>
                   </div>
                 ))}
+                
+                <div className='mt-2 flex justify-end'>
+                  <Button
+                    variant='destructive'
+                    size='sm'
+                    className='h-8'
+                    onClick={async () => {
+                      const { deleteMealPlanAction } = await import('../actions');
+                      const toast = (await import('sonner')).toast;
+                      
+                      const result = await deleteMealPlanAction(plan.id);
+                      if (result.success) {
+                        setPlans((prev) => prev.filter((p) => p.id !== plan.id));
+                        toast.success('Meal plan deleted');
+                      } else {
+                        toast.error(result.error || 'Failed to delete plan');
+                      }
+                    }}
+                  >
+                    <Trash2 className='mr-2 h-4 w-4' />
+                    Delete Plan
+                  </Button>
+                </div>
               </div>
             </AccordionContent>
           </AccordionItem>
