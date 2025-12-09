@@ -153,22 +153,7 @@ export async function getFavoriteFoodsAction() {
   })) as NutritionData[];
 }
 
-export async function clearFoodCacheAction() {
-  const supabase = await createClient();
 
-  // Only authenticated users can clear cache (via RLS)
-  const { error } = await supabase
-    .from('food_search_cache')
-    .delete()
-    .neq('query', ''); // Delete all
-
-  if (error) {
-    console.error('Error clearing food cache:', error);
-    return { success: false, error: error.message };
-  }
-
-  return { success: true };
-}
 import { getAIHelper } from '@/lib/ai-helper';
 
 export async function parseFoodLogAction(input: string) {

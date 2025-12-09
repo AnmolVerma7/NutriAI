@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { useRouter } from 'next/navigation';
 import { toggleFavoriteAction } from '@/features/dashboard/actions/recipes';
 import {
@@ -145,7 +146,7 @@ export function FavoritesView({
                 <Link key={recipe.id} href={`/dashboard/recipes/${recipe.id}`}>
                   <Card className='group border-muted/60 h-full overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
                     <div className='relative aspect-video w-full overflow-hidden'>
-                      <Image
+                      <ImageWithFallback
                         src={recipe.image}
                         alt={recipe.title}
                         fill
@@ -216,7 +217,7 @@ export function FavoritesView({
                       >
                         <td className='p-4 align-middle'>
                           <div className='relative h-10 w-16 overflow-hidden rounded-md'>
-                            <Image
+                            <ImageWithFallback
                               src={recipe.image}
                               alt={recipe.title}
                               fill

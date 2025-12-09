@@ -12,6 +12,7 @@ import { RecipeSearchResult, RecipeInformation } from '@/lib/spoonacular';
 import { toast } from 'sonner';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import {
   Card,
   CardContent,
@@ -20,6 +21,7 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { RecipeGridSkeleton } from '@/components/skeletons';
 
 export function RecipeSearch() {
   const searchParams = useSearchParams();
@@ -135,11 +137,7 @@ export function RecipeSearch() {
         </form>
       </div>
 
-      {isLoading && (
-        <div className='flex justify-center py-12'>
-          <Loader2 className='text-muted-foreground h-8 w-8 animate-spin' />
-        </div>
-      )}
+      {isLoading && <RecipeGridSkeleton />}
 
       {!isLoading && !hasSearched && recentRecipes.length > 0 && (
         <div className='space-y-4'>

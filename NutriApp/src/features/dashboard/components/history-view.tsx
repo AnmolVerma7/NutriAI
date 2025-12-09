@@ -17,6 +17,7 @@ import {
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
 import Link from 'next/link';
+import { FoodIcon } from '@/components/ui/food-icon';
 
 interface FoodLog {
   id: string;
@@ -149,15 +150,22 @@ export function HistoryView({ logs }: HistoryViewProps) {
                           )}
                         </td>
                         <td className='p-4 align-middle font-medium'>
-                          {log.name}
-                          <div className='text-muted-foreground block text-xs md:hidden'>
-                            {new Date(log.created_at).toLocaleTimeString(
-                              'en-US',
-                              {
-                                hour: 'numeric',
-                                minute: '2-digit'
-                              }
-                            )}
+                          <div className="flex items-center gap-3">
+                            <div className="bg-secondary/20 rounded-md p-2">
+                              <FoodIcon name={log.name} className="h-5 w-5" />
+                            </div>
+                            <div className="flex flex-col">
+                              <span>{log.name}</span>
+                              <div className='text-muted-foreground block text-xs md:hidden'>
+                                {new Date(log.created_at).toLocaleTimeString(
+                                  'en-US',
+                                  {
+                                    hour: 'numeric',
+                                    minute: '2-digit'
+                                  }
+                                )}
+                              </div>
+                            </div>
                           </div>
                         </td>
                         <td className='hidden p-4 text-right align-middle md:table-cell'>

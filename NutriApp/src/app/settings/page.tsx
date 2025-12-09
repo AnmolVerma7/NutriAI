@@ -15,7 +15,7 @@ import { ArrowLeft, Trash2, Save, Database } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { clearCacheAction } from '@/features/dashboard/actions/recipes';
-import { clearFoodCacheAction } from '@/features/dashboard/actions';
+
 import PageContainer from '@/components/layout/page-container';
 
 import { ProfileForm } from '@/features/profile/components/profile-form';
@@ -25,7 +25,6 @@ export default function SettingsPage() {
   const router = useRouter();
   const [confirmDelete, setConfirmDelete] = useState(true);
   const [isClearing, setIsClearing] = useState(false);
-  const [isClearingFood, setIsClearingFood] = useState(false);
 
   useEffect(() => {
     const storedPref = localStorage.getItem('nutri-confirm-delete');
@@ -56,21 +55,7 @@ export default function SettingsPage() {
     }
   };
 
-  const handleClearFoodCache = async () => {
-    setIsClearingFood(true);
-    try {
-      const result = await clearFoodCacheAction();
-      if (result.success) {
-        toast.success('Food search cache cleared successfully!');
-      } else {
-        toast.error(result.error || 'Failed to clear food cache');
-      }
-    } catch (error) {
-      toast.error('An error occurred');
-    } finally {
-      setIsClearingFood(false);
-    }
-  };
+
 
   return (
     <div className='bg-background min-h-screen p-4 md:p-8'>
@@ -142,7 +127,7 @@ export default function SettingsPage() {
                     Data Management
                   </CardTitle>
                   <CardDescription>
-                    Manage cached data. (Food Cache clearing disabled for safety)
+                    Manage cached data.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-4'>
@@ -168,15 +153,6 @@ export default function SettingsPage() {
                       className='w-full sm:w-auto'
                     >
                       {isClearing ? 'Clearing...' : 'Clear Recipe Cache'}
-                    </Button>
-                    <Button
-                      variant='destructive'
-                      onClick={handleClearFoodCache}
-                      disabled={true} 
-                      className='w-full sm:w-auto opacity-50 cursor-not-allowed'
-                      title="Food Search Cache is preserved for offline/demo use"
-                    >
-                      Clear Food Search Cache (Locked)
                     </Button>
                   </div>
                 </CardContent>
