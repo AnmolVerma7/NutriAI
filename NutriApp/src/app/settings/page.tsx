@@ -142,7 +142,7 @@ export default function SettingsPage() {
                     Data Management
                   </CardTitle>
                   <CardDescription>
-                    Manage cached data and storage.
+                    Manage cached data. (Food Cache clearing disabled for safety)
                   </CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-4'>
@@ -172,12 +172,11 @@ export default function SettingsPage() {
                     <Button
                       variant='destructive'
                       onClick={handleClearFoodCache}
-                      disabled={isClearingFood}
-                      className='w-full sm:w-auto'
+                      disabled={true} 
+                      className='w-full sm:w-auto opacity-50 cursor-not-allowed'
+                      title="Food Search Cache is preserved for offline/demo use"
                     >
-                      {isClearingFood
-                        ? 'Clearing...'
-                        : 'Clear Food Search Cache'}
+                      Clear Food Search Cache (Locked)
                     </Button>
                   </div>
                 </CardContent>
