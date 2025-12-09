@@ -111,8 +111,9 @@ Once the server starts, open your web browser and visit:
 - **🍳 Recipe Discovery:** Browse thousands of recipes with filters (Diet, Calories, etc.).
 - **❤️ Favorites System:** Save your favorite recipes and foods for quick access.
 - **⚙️ Settings:** Manage preferences, appearance themes, and edit your profile/goals.
+- **📊 Progress Analytics:** Track weight trends and calorie adherence over time with interactive charts.
 - **⚡ Smart Caching:** Minimizes API usage by caching recipes and food searches in Supabase.
-- **📊 Dashboard:** View your daily progress and recent activities.
+- **🌱 Demo Readiness:** Includes a built-in seeding tool (`/api/seed`) to instantly populate the account with realistic data for presentations.
 
 ## 🧠 AI Architecture
 
@@ -128,8 +129,10 @@ _For a deep dive into the AI implementation, check out the [Claude API Guide](do
 ## Documentation
 
 - [API Reference](docs/API_REFERENCE.md)
-- [Claude API Guide](docs/CLAUDE_API_GUIDE.md)
+- [AI Workflow & Architecture](docs/AI_WORKFLOW.md)
 - [Deployment Guide](docs/DEPLOYMENT.md)
+- [Idea Explanation](docs/IDEA_EXPLANATION.md)
+- [B-Roll Demo Script](docs/DEMO_SCRIPT.md)
 
 ## Contributing
 
