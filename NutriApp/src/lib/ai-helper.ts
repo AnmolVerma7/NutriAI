@@ -118,6 +118,39 @@ export class AIHelper {
     }
   }
 
+  /**
+   * Multi-turn chat generation
+   */
+  async chat(
+    messages: { role: 'user' | 'assistant'; content: string }[],
+    systemPrompt?: string
+  ): Promise<string> {
+    try {
+      const response = await this.client.messages.create({
+        model: this.config.model,
+        max_tokens: this.config.maxTokens, // Allow longer responses for chat
+        temperature: 0.7, // Slightly creative for conversation
+        system: systemPrompt,
+        messages: messages
+      });
+
+      // Track usage
+      if (response.usage) {
+        this.usage.input += response.usage.input_tokens;
+        this.usage.output += response.usage.output_tokens;
+        this.usage.total +=
+          response.usage.input_tokens + response.usage.output_tokens;
+      }
+
+      return response.content[0].type === 'text'
+        ? response.content[0].text
+        : '';
+    } catch (error) {
+      console.error('AI Helper Chat Error:', error);
+      throw error;
+    }
+  }
+
   public getUsageStats(): TokenUsage {
     return { ...this.usage };
   }

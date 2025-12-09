@@ -68,6 +68,14 @@ export const navItems: NavItem[] = [
     isActive: false,
     shortcut: ['a', 'i'],
     items: []
+  },
+  {
+    title: 'NutriAI Chat',
+    url: '/dashboard/chat',
+    icon: 'chat',
+    isActive: false,
+    shortcut: ['c', 'h'],
+    items: []
   }
 ];
 

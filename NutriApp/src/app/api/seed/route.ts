@@ -154,8 +154,10 @@ export async function GET() {
     d.setDate(d.getDate() - i);
     const dateStr = d.toISOString().split('T')[0];
 
-    // Pick a meal set (rotate based on 'i')
-    const dayPlan = mealTemplates[i % 3];
+    // Pick a meal set (Stable based on date, not relative 'i')
+    // Use the day of the month/year or epoch to pick consistent template
+    const daySeed = d.getDate(); // 1-31
+    const dayPlan = mealTemplates[daySeed % 3];
 
     // Day's totals
     let dailyCals = 0;

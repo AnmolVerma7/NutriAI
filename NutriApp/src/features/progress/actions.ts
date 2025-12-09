@@ -100,54 +100,178 @@ export async function seedProgressDataAction() {
     return { error: 'User not authenticated' };
   }
 
-  // Generate 30 days of data
-  const data = [];
-  const today = new Date();
+  // --- COPIED FROM api/seed/route.ts ---
+  // 1. Delete existing data
+  await supabase.from('food_logs').delete().eq('user_id', user.id);
+  await supabase.from('user_progress').delete().eq('user_id', user.id);
 
-  // Starting stats (simulated)
-  let currentWeight = 85; // kg
-  const targetCalories = 2200;
+  const logs = [];
+  const progressEntries = [];
 
-  for (let i = 29; i >= 0; i--) {
-    const date = new Date(today);
-    date.setDate(date.getDate() - i);
-    const dateStr = date.toISOString().split('T')[0];
+  const mealTemplates = [
+    [
+      // Day A
+      {
+        name: 'Oatmeal & Whey',
+        c: 450,
+        p: 30,
+        cb: 50,
+        f: 10,
+        g: 300,
+        u: 'bowl',
+        h: 8
+      },
+      {
+        name: 'Chicken & Rice',
+        c: 700,
+        p: 60,
+        cb: 80,
+        f: 15,
+        g: 500,
+        u: 'plate',
+        h: 13
+      },
+      {
+        name: 'Salmon & Asparagus',
+        c: 600,
+        p: 40,
+        cb: 20,
+        f: 30,
+        g: 400,
+        u: 'plate',
+        h: 19
+      }
+    ],
+    [
+      // Day B
+      {
+        name: 'Eggs & Toast',
+        c: 550,
+        p: 25,
+        cb: 40,
+        f: 30,
+        g: 250,
+        u: '2 slices',
+        h: 8
+      },
+      {
+        name: 'Pasta with Meat Sauce',
+        c: 800,
+        p: 35,
+        cb: 100,
+        f: 20,
+        g: 450,
+        u: 'bowl',
+        h: 13
+      },
+      {
+        name: 'Greek Yogurt Bowl',
+        c: 300,
+        p: 20,
+        cb: 30,
+        f: 5,
+        g: 200,
+        u: 'bowl',
+        h: 19
+      }
+    ],
+    [
+      // Day C
+      {
+        name: 'Protein Pancakes',
+        c: 500,
+        p: 30,
+        cb: 60,
+        f: 12,
+        g: 300,
+        u: 'stack',
+        h: 9
+      },
+      {
+        name: 'Turkey Sandwich',
+        c: 450,
+        p: 30,
+        cb: 45,
+        f: 10,
+        g: 250,
+        u: 'sandwich',
+        h: 13
+      },
+      {
+        name: 'Steak & Potatoes',
+        c: 900,
+        p: 60,
+        cb: 50,
+        f: 45,
+        g: 500,
+        u: 'plate',
+        h: 19
+      }
+    ]
+  ];
 
-    // Simulate weight loss trend with some fluctuation
-    const fluctuation = (Math.random() - 0.5) * 0.5; // +/- 0.25kg
-    const trend = -0.05; // -0.05kg per day
-    currentWeight = currentWeight + trend + fluctuation;
+  // Loop back 7 days
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().split('T')[0];
 
-    // Simulate calorie adherence
-    // 80% chance of being close to target, 20% chance of cheat day
-    let calories;
-    if (Math.random() > 0.2) {
-      calories = targetCalories + (Math.random() - 0.5) * 200; // +/- 100
-    } else {
-      calories = targetCalories + 500 + Math.random() * 500; // Cheat day
+    // DETERMINISTIC SELECTION: Use date for template
+    const daySeed = d.getDate();
+    const dayPlan = mealTemplates[daySeed % 3];
+
+    let dailyCals = 0;
+    let dailyPro = 0;
+    let dailyCarbs = 0;
+    let dailyFats = 0;
+
+    for (const meal of dayPlan) {
+      if (i === 0 && meal.h > 18) continue; // Skip dinner for Today
+
+      const createdTime = new Date(d);
+      createdTime.setHours(meal.h, 0, 0, 0);
+
+      logs.push({
+        user_id: user.id,
+        name: meal.name,
+        calories: meal.c,
+        protein_g: meal.p,
+        carbs_g: meal.cb,
+        fat_g: meal.f,
+        serving_size_g: meal.g,
+        serving_unit: meal.u,
+        date: dateStr,
+        created_at: createdTime.toISOString()
+      });
+
+      dailyCals += meal.c;
+      dailyPro += meal.p;
+      dailyCarbs += meal.cb;
+      dailyFats += meal.f;
     }
 
-    data.push({
+    // Progress Entry
+    const simulatedWeight = 86 - (6 - i) * 0.15;
+    progressEntries.push({
       user_id: user.id,
       date: dateStr,
-      weight: Number(currentWeight.toFixed(1)),
-      calories: Math.round(calories),
-      protein: Math.round((calories * 0.3) / 4), // 30% protein
-      carbs: Math.round((calories * 0.4) / 4), // 40% carbs
-      fats: Math.round((calories * 0.3) / 9) // 30% fats
+      weight: Number(simulatedWeight.toFixed(1)),
+      calories: dailyCals,
+      protein: dailyPro,
+      carbs: dailyCarbs,
+      fats: dailyFats
     });
   }
 
-  // Delete existing data for clean slate (optional, but good for demo)
-  await supabase.from('user_progress').delete().eq('user_id', user.id);
+  const { error: logsError } = await supabase.from('food_logs').insert(logs);
+  if (logsError) return { error: 'Logs: ' + logsError.message };
 
-  const { error } = await supabase.from('user_progress').insert(data);
-
-  if (error) {
-    console.error('Error seeding data:', error);
-    return { error: 'Failed to seed data' };
-  }
+  const { error: progressError } = await supabase
+    .from('user_progress')
+    .insert(progressEntries);
+  if (progressError) return { error: 'Progress: ' + progressError.message };
 
   revalidatePath('/dashboard/progress');
+  revalidatePath('/dashboard/history'); // Make sure history page updates too
   return { success: true };
 }
