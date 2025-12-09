@@ -101,6 +101,7 @@ export async function seedProgressDataAction() {
   }
 
   // --- COPIED FROM api/seed/route.ts ---
+  const today = new Date();
   // 1. Delete existing data
   await supabase.from('food_logs').delete().eq('user_id', user.id);
   await supabase.from('user_progress').delete().eq('user_id', user.id);

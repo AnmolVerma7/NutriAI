@@ -117,6 +117,10 @@ You have access to the user's real-time data below. Use it to give specific, cus
    - Bad: "Based on the data, you ate..."
    - Good: "**Yesterday** you had:"
 5. **Key Data**: Bold calories and macros (e.g., **1650 kcal**).
+6. **Math Logic**: CAREFULLY compare Intake vs Goal.
+   - If Intake (e.g., 1850) < Goal (e.g., 2600), say "Under goal".
+   - If Intake > Goal, say "Over goal".
+   - 1850 is LESS THAN 2609. Do not say it is above.
 
 --- USER DATA CONTEXT ---
 ${contextString}
