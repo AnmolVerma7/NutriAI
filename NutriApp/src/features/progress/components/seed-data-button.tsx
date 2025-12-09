@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { seedProgressDataAction } from '../actions';
 import { toast } from 'sonner';
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
+import { Database, Sprout, Rocket, Loader2 } from 'lucide-react';
 
 export function SeedDataButton() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +16,9 @@ export function SeedDataButton() {
       if (result.error) {
         toast.error(result.error);
       } else {
-        toast.success('Demo data seeded successfully! 🚀');
+        toast.success('Demo data seeded successfully!', {
+          icon: <Rocket className="h-4 w-4" />
+        });
       }
     } catch (error) {
       toast.error('Something went wrong');
@@ -33,7 +35,9 @@ export function SeedDataButton() {
           Seeding...
         </>
       ) : (
-        'Seed Demo Data 🌱'
+        <>
+          Seed Demo Data <Sprout className='ml-2 h-4 w-4' />
+        </>
       )}
     </Button>
   );

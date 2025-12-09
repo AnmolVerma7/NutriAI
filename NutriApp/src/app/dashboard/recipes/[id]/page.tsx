@@ -10,7 +10,19 @@ import {
 import { RecipeInformation } from '@/lib/spoonacular';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, ArrowLeft, Clock, Users, Heart } from 'lucide-react';
+import {
+  Clock,
+  Flame,
+  Utensils,
+  ChevronLeft,
+  Heart,
+  Carrot,
+  FileText,
+  ChefHat,
+  Loader2,
+  ArrowLeft,
+  Users
+} from 'lucide-react';
 import Image from 'next/image';
 import PageContainer from '@/components/layout/page-container';
 import { toast } from 'sonner';
@@ -142,7 +154,10 @@ export default function RecipeDetailsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className='flex items-center gap-2'>
-                  <span className='text-primary'>🥕</span> Ingredients
+                  <span className='text-primary mr-2'>
+                    <Carrot className='h-4 w-4' />
+                  </span>
+                  Ingredients
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -184,7 +199,10 @@ export default function RecipeDetailsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className='flex items-center gap-2'>
-                  <span className='text-primary'>📝</span> About this Dish
+                  <span className='text-primary mr-2'>
+                    <FileText className='h-4 w-4' />
+                  </span>
+                  About this Dish
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -198,7 +216,10 @@ export default function RecipeDetailsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className='flex items-center gap-2'>
-                  <span className='text-primary'>🍳</span> Instructions
+                  <span className='text-primary mr-2'>
+                    <ChefHat className='h-4 w-4' />
+                  </span>
+                  Instructions
                 </CardTitle>
               </CardHeader>
               <CardContent>

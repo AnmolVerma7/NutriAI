@@ -1,10 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { deleteFoodLogAction } from '@/features/dashboard/actions';
 import { toast } from 'sonner';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import {
   AlertDialog,
@@ -76,9 +84,9 @@ export function RecentMeals({ logs }: RecentMealsProps) {
   return (
     <div className='space-y-4'>
       <div className='flex items-center justify-between'>
-        <h3 className='text-xl font-semibold tracking-tight'>
-          Recent Meals 🍽️
-        </h3>
+        <CardTitle className='flex items-center gap-2'>
+          Recent Meals <Utensils className='h-4 w-4' />
+        </CardTitle>
       </div>
 
       {logs && logs.length > 0 ? (

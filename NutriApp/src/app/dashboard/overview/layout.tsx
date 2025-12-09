@@ -1,3 +1,4 @@
+import { LayoutDashboard } from 'lucide-react';
 import PageContainer from '@/components/layout/page-container';
 import {
   Card,
@@ -19,6 +20,7 @@ import { FoodSearch } from '@/features/dashboard/components/food-search';
 import { RecentMeals } from '@/features/dashboard/components/recent-meals';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Heading } from '@/components/ui/heading';
 
 export default async function OverViewLayout({
   sales,
@@ -87,9 +89,14 @@ export default async function OverViewLayout({
     <PageContainer>
       <div className='flex flex-1 flex-col space-y-6'>
         <div className='flex items-center justify-between space-y-2'>
-          <h2 className='text-2xl font-bold tracking-tight'>
-            Daily Overview 🥗
-          </h2>
+          <Heading
+            title={
+              <div className='flex items-center gap-2'>
+                Daily Overview <LayoutDashboard className='h-8 w-8 text-primary' />
+              </div>
+            }
+            description='Track your daily nutrition and progress towards your goals.'
+          />
           <Button asChild>
             <Link href='/dashboard/log-meal'>Log Meal</Link>
           </Button>

@@ -100,7 +100,10 @@ export function FavoritesView({
   return (
     <div className='mx-auto w-full max-w-7xl space-y-6'>
       <div className='flex items-center justify-between'>
-        <h2 className='text-3xl font-bold tracking-tight'>My Favorites ❤️</h2>
+        <div className='flex items-center gap-2'>
+          <h2 className='text-3xl font-bold tracking-tight'>My Favorites</h2>
+          <Heart className='text-primary h-8 w-8 fill-red-500 text-red-500' />
+        </div>
         <div className='bg-muted/50 flex items-center space-x-2 rounded-lg border p-1'>
           <Button
             variant={viewMode === 'grid' ? 'secondary' : 'ghost'}

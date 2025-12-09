@@ -17,6 +17,7 @@ import {
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
 import Link from 'next/link';
+import { History } from 'lucide-react';
 import { FoodIcon } from '@/components/ui/food-icon';
 
 interface FoodLog {
@@ -94,7 +95,10 @@ export function HistoryView({ logs }: HistoryViewProps) {
   return (
     <div className='space-y-8'>
       <div className='flex items-center justify-between'>
-        <h2 className='text-3xl font-bold tracking-tight'>Meal History 📜</h2>
+        <div className='flex items-center gap-2'>
+          <h2 className='text-3xl font-bold tracking-tight'>Meal History</h2>
+          <History className='text-primary h-8 w-8' />
+        </div>
       </div>
 
       {groupedLogs && Object.keys(groupedLogs).length > 0 ? (

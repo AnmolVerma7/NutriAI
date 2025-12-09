@@ -8,6 +8,7 @@ import {
   CardTitle,
   CardAction
 } from '@/components/ui/card';
+import { Hand } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AreaGraph } from './area-graph';
 import { BarGraph } from './bar-graph';
@@ -22,7 +23,7 @@ export default function OverViewPage() {
       <div className='flex flex-1 flex-col space-y-2'>
         <div className='flex items-center justify-between space-y-2'>
           <h2 className='text-2xl font-bold tracking-tight'>
-            Hi, Welcome back 👋
+            Hi, Welcome back <Hand className='inline h-6 w-6 text-yellow-500' />
           </h2>
           <div className='hidden items-center space-x-2 md:flex'>
             <Button>Download</Button>

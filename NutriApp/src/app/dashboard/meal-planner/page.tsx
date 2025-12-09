@@ -4,17 +4,24 @@ import PageContainer from '@/components/layout/page-container';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Bot, History } from 'lucide-react';
 
 export default function MealPlannerPage() {
   return (
     <PageContainer>
       <div className='space-y-4'>
         <div className='flex items-start justify-between'>
-          <Heading
-            title='AI Meal Planner 🤖'
-            description='Get personalized meal suggestions based on your goals and dietary needs.'
-          />
+          <div>
+            <div className='mb-2 flex items-center space-x-2'>
+              <h2 className='text-3xl font-bold tracking-tight'>AI Meal Planner</h2>
+              <Bot className='text-primary h-8 w-8' />
+            </div>
+            <p className='text-muted-foreground text-sm'>
+              Get personalized meal suggestions based on your goals and dietary needs.
+            </p>
+          </div>
         </div>
+
         <Separator />
 
         <Tabs defaultValue='generate' className='w-full'>

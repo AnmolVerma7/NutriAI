@@ -8,7 +8,7 @@ import {
   logFoodAction
 } from '@/features/dashboard/actions';
 import { toast } from 'sonner';
-import { Loader2, Plus, Sparkles } from 'lucide-react';
+import { Loader2, Plus, Sparkles, Check } from 'lucide-react';
 import { NutritionData } from '@/types/nutrition';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -167,7 +167,9 @@ export function NaturalLanguageInput() {
                   >
                     {isLogged ? (
                       <>
-                        <span className='mr-2'>✓</span>
+                      <span className='mr-2'>
+                        <Check className='h-4 w-4' />
+                      </span>
                         Logged
                       </>
                     ) : (

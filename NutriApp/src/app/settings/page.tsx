@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { ArrowLeft, Trash2, Save, Database, Palette } from 'lucide-react';
+import { ArrowLeft, Trash2, Save, Database, Palette, Heart, Salad } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { clearCacheAction } from '@/features/dashboard/actions/recipes';
@@ -139,10 +139,10 @@ export default function SettingsPage() {
                     </p>
                     <ul className='list-disc space-y-1 pl-4'>
                       <li>
-                        Your <strong>Favorites</strong> will be safe. ❤️
+                        Your <strong>Favorites</strong> will be safe. <Heart className='inline h-3 w-3 text-red-500' />
                       </li>
                       <li>
-                        Your <strong>Meal Logs</strong> will be safe. 🥗
+                        Your <strong>Meal Logs</strong> will be safe. <Salad className='inline h-3 w-3 text-green-500' />
                       </li>
                     </ul>
                   </div>

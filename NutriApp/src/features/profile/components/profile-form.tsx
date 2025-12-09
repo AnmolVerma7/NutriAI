@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Plus, Minus, Calculator, Sparkles } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
@@ -525,11 +525,12 @@ export function ProfileForm({
           <h3 className='text-lg font-medium'>Daily Goals</h3>
           <Button
             type='button'
-            variant='outline'
+            variant='secondary'
             size='sm'
             onClick={calculateMacros}
           >
-            Auto-Calculate ✨
+            <Sparkles className='mr-2 h-4 w-4' />
+            Auto-Calculate
           </Button>
         </div>
 
