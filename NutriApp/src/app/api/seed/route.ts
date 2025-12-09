@@ -42,23 +42,107 @@ export async function GET() {
   // 3. Generate 7 Days of Data
   const logs = [];
   const progressEntries = [];
-  
+
   // Meal Templates to rotate
   const mealTemplates = [
-    [ // Day A (Balanced)
-      { name: 'Oatmeal & Whey', c: 450, p: 30, cb: 50, f: 10, g: 300, u: 'bowl', h: 8 },
-      { name: 'Chicken & Rice', c: 700, p: 60, cb: 80, f: 15, g: 500, u: 'plate', h: 13 },
-      { name: 'Salmon & Asparagus', c: 600, p: 40, cb: 20, f: 30, g: 400, u: 'plate', h: 19 }
+    [
+      // Day A (Balanced)
+      {
+        name: 'Oatmeal & Whey',
+        c: 450,
+        p: 30,
+        cb: 50,
+        f: 10,
+        g: 300,
+        u: 'bowl',
+        h: 8
+      },
+      {
+        name: 'Chicken & Rice',
+        c: 700,
+        p: 60,
+        cb: 80,
+        f: 15,
+        g: 500,
+        u: 'plate',
+        h: 13
+      },
+      {
+        name: 'Salmon & Asparagus',
+        c: 600,
+        p: 40,
+        cb: 20,
+        f: 30,
+        g: 400,
+        u: 'plate',
+        h: 19
+      }
     ],
-    [ // Day B (Higher Carb)
-      { name: 'Eggs & Toast', c: 550, p: 25, cb: 40, f: 30, g: 250, u: '2 slices', h: 8 },
-      { name: 'Pasta with Meat Sauce', c: 800, p: 35, cb: 100, f: 20, g: 450, u: 'bowl', h: 13 },
-      { name: 'Greek Yogurt Bowl', c: 300, p: 20, cb: 30, f: 5, g: 200, u: 'bowl', h: 19 }
+    [
+      // Day B (Higher Carb)
+      {
+        name: 'Eggs & Toast',
+        c: 550,
+        p: 25,
+        cb: 40,
+        f: 30,
+        g: 250,
+        u: '2 slices',
+        h: 8
+      },
+      {
+        name: 'Pasta with Meat Sauce',
+        c: 800,
+        p: 35,
+        cb: 100,
+        f: 20,
+        g: 450,
+        u: 'bowl',
+        h: 13
+      },
+      {
+        name: 'Greek Yogurt Bowl',
+        c: 300,
+        p: 20,
+        cb: 30,
+        f: 5,
+        g: 200,
+        u: 'bowl',
+        h: 19
+      }
     ],
-    [ // Day C (Cheatish)
-      { name: 'Protein Pancakes', c: 500, p: 30, cb: 60, f: 12, g: 300, u: 'stack', h: 9 },
-      { name: 'Turkey Sandwich', c: 450, p: 30, cb: 45, f: 10, g: 250, u: 'sandwich', h: 13 },
-      { name: 'Steak & Potatoes', c: 900, p: 60, cb: 50, f: 45, g: 500, u: 'plate', h: 19 }
+    [
+      // Day C (Cheatish)
+      {
+        name: 'Protein Pancakes',
+        c: 500,
+        p: 30,
+        cb: 60,
+        f: 12,
+        g: 300,
+        u: 'stack',
+        h: 9
+      },
+      {
+        name: 'Turkey Sandwich',
+        c: 450,
+        p: 30,
+        cb: 45,
+        f: 10,
+        g: 250,
+        u: 'sandwich',
+        h: 13
+      },
+      {
+        name: 'Steak & Potatoes',
+        c: 900,
+        p: 60,
+        cb: 50,
+        f: 45,
+        g: 500,
+        u: 'plate',
+        h: 19
+      }
     ]
   ];
 
@@ -69,10 +153,10 @@ export async function GET() {
     const d = new Date(today);
     d.setDate(d.getDate() - i);
     const dateStr = d.toISOString().split('T')[0];
-    
+
     // Pick a meal set (rotate based on 'i')
     const dayPlan = mealTemplates[i % 3];
-    
+
     // Day's totals
     let dailyCals = 0;
     let dailyPro = 0;
@@ -82,7 +166,7 @@ export async function GET() {
     // Create logs for this day
     for (const meal of dayPlan) {
       // Don't log dinner for "Today" (i === 0) so the AI has room to suggest
-      if (i === 0 && meal.h > 18) continue; 
+      if (i === 0 && meal.h > 18) continue;
 
       const createdTime = new Date(d);
       createdTime.setHours(meal.h, 0, 0, 0);
@@ -108,8 +192,8 @@ export async function GET() {
 
     // Progress Entry (Simulate weight loss: 86kg -> 85kg)
     // Starting 86, losing ~0.15kg per day approx
-    const simulatedWeight = 86 - ((6 - i) * 0.15); 
-    
+    const simulatedWeight = 86 - (6 - i) * 0.15;
+
     progressEntries.push({
       user_id: user.id,
       date: dateStr,
@@ -123,14 +207,24 @@ export async function GET() {
 
   // Insert Logs
   const { error: logsError } = await supabase.from('food_logs').insert(logs);
-  if (logsError) return NextResponse.json({ error: 'Logs: ' + logsError.message }, { status: 500 });
+  if (logsError)
+    return NextResponse.json(
+      { error: 'Logs: ' + logsError.message },
+      { status: 500 }
+    );
 
   // Insert Progress
-  const { error: progressError } = await supabase.from('user_progress').insert(progressEntries);
-  if (progressError) return NextResponse.json({ error: 'Progress: ' + progressError.message }, { status: 500 });
+  const { error: progressError } = await supabase
+    .from('user_progress')
+    .insert(progressEntries);
+  if (progressError)
+    return NextResponse.json(
+      { error: 'Progress: ' + progressError.message },
+      { status: 500 }
+    );
 
-  return NextResponse.json({ 
-    success: true, 
+  return NextResponse.json({
+    success: true,
     message: `Seeded 7 days of data! (${logs.length} meals, 7 progress entries)`
   });
 }

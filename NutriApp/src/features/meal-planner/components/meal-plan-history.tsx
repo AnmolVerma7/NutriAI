@@ -117,19 +117,23 @@ export function MealPlanHistory() {
                     </div>
                   </div>
                 ))}
-                
+
                 <div className='mt-2 flex justify-end'>
                   <Button
                     variant='destructive'
                     size='sm'
                     className='h-8'
                     onClick={async () => {
-                      const { deleteMealPlanAction } = await import('../actions');
+                      const { deleteMealPlanAction } = await import(
+                        '../actions'
+                      );
                       const toast = (await import('sonner')).toast;
-                      
+
                       const result = await deleteMealPlanAction(plan.id);
                       if (result.success) {
-                        setPlans((prev) => prev.filter((p) => p.id !== plan.id));
+                        setPlans((prev) =>
+                          prev.filter((p) => p.id !== plan.id)
+                        );
                         toast.success('Meal plan deleted');
                       } else {
                         toast.error(result.error || 'Failed to delete plan');

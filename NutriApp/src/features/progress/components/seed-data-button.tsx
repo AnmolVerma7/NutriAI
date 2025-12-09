@@ -17,7 +17,7 @@ export function SeedDataButton() {
         toast.error(result.error);
       } else {
         toast.success('Demo data seeded successfully!', {
-          icon: <Rocket className="h-4 w-4" />
+          icon: <Rocket className='h-4 w-4' />
         });
       }
     } catch (error) {

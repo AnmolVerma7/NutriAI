@@ -167,9 +167,9 @@ export function NaturalLanguageInput() {
                   >
                     {isLogged ? (
                       <>
-                      <span className='mr-2'>
-                        <Check className='h-4 w-4' />
-                      </span>
+                        <span className='mr-2'>
+                          <Check className='h-4 w-4' />
+                        </span>
                         Logged
                       </>
                     ) : (

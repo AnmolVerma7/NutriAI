@@ -11,7 +11,15 @@ import {
 } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { ArrowLeft, Trash2, Save, Database, Palette, Heart, Salad } from 'lucide-react';
+import {
+  ArrowLeft,
+  Trash2,
+  Save,
+  Database,
+  Palette,
+  Heart,
+  Salad
+} from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { clearCacheAction } from '@/features/dashboard/actions/recipes';
@@ -26,7 +34,7 @@ export default function SettingsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const defaultTab = searchParams.get('tab') || 'app';
-  
+
   const [confirmDelete, setConfirmDelete] = useState(true);
   const [isClearing, setIsClearing] = useState(false);
 
@@ -91,14 +99,14 @@ export default function SettingsPage() {
                 </CardHeader>
                 <CardContent className='space-y-4'>
                   <div className='flex items-center justify-between space-x-2'>
-                      <div className='space-y-1'>
-                        <Label htmlFor='confirm-delete' className='font-medium'>
-                          Confirm before delete
-                        </Label>
-                        <p className='text-muted-foreground text-sm'>
-                          Show a confirmation dialog when deleting meals.
-                        </p>
-                      </div>
+                    <div className='space-y-1'>
+                      <Label htmlFor='confirm-delete' className='font-medium'>
+                        Confirm before delete
+                      </Label>
+                      <p className='text-muted-foreground text-sm'>
+                        Show a confirmation dialog when deleting meals.
+                      </p>
+                    </div>
                     <Switch
                       id='confirm-delete'
                       checked={confirmDelete}
@@ -139,10 +147,12 @@ export default function SettingsPage() {
                     </p>
                     <ul className='list-disc space-y-1 pl-4'>
                       <li>
-                        Your <strong>Favorites</strong> will be safe. <Heart className='inline h-3 w-3 text-red-500' />
+                        Your <strong>Favorites</strong> will be safe.{' '}
+                        <Heart className='inline h-3 w-3 text-red-500' />
                       </li>
                       <li>
-                        Your <strong>Meal Logs</strong> will be safe. <Salad className='inline h-3 w-3 text-green-500' />
+                        Your <strong>Meal Logs</strong> will be safe.{' '}
+                        <Salad className='inline h-3 w-3 text-green-500' />
                       </li>
                     </ul>
                   </div>

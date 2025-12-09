@@ -92,7 +92,8 @@ export default async function OverViewLayout({
           <Heading
             title={
               <div className='flex items-center gap-2'>
-                Daily Overview <LayoutDashboard className='h-8 w-8 text-primary' />
+                Daily Overview{' '}
+                <LayoutDashboard className='text-primary h-8 w-8' />
               </div>
             }
             description='Track your daily nutrition and progress towards your goals.'

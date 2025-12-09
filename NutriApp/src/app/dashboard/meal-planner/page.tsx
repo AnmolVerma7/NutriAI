@@ -13,11 +13,14 @@ export default function MealPlannerPage() {
         <div className='flex items-start justify-between'>
           <div>
             <div className='mb-2 flex items-center space-x-2'>
-              <h2 className='text-3xl font-bold tracking-tight'>AI Meal Planner</h2>
+              <h2 className='text-3xl font-bold tracking-tight'>
+                AI Meal Planner
+              </h2>
               <Bot className='text-primary h-8 w-8' />
             </div>
             <p className='text-muted-foreground text-sm'>
-              Get personalized meal suggestions based on your goals and dietary needs.
+              Get personalized meal suggestions based on your goals and dietary
+              needs.
             </p>
           </div>
         </div>
