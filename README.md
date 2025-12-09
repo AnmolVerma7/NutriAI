@@ -1,6 +1,6 @@
-# NutriAI
+# NutriAI 🌿
 
-NutriAI is an AI-powered nutrition tracking application designed to simplify meal logging and health monitoring. It leverages Next.js 16, Supabase for authentication and data storage, and the FatSecret Platform API for robust food data.
+NutriAI is an intelligent, AI-powered nutrition tracking application designed to simplify meal logging and health monitoring. Built with **Next.js 16**, **Supabase**, and agentic AI, it transforms how users interact with their nutrition data—from natural language logging to personalized meal planning.
 
 ## Prerequisites
 
@@ -86,53 +86,53 @@ Once the server starts, open your web browser and visit:
 
 ## Project Structure
 
-- **src/app**: Contains the pages and routing logic.
-- **src/components**: Reusable UI components (buttons, forms, etc.).
-- **src/features**: Feature-specific code (e.g., `auth` for login, `dashboard` for the main app).
-- **src/lib**: Helper functions and API clients.
+- **src/app**: Contains the pages and routing logic (App Router).
+- **src/components**: Reusable UI components (Shadcn/UI based).
+- **src/features**: Feature-driven architecture (e.g., `auth`, `dashboard`, `meal-planner`, `recipes`).
+- **src/lib**: Helper functions, API clients, and AI initialization.
 
 ## Tech Stack
 
-- **Framework:** Next.js 16
+- **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS + Shadcn UI
+- **Styling:** Tailwind CSS, Shadcn UI, Lucide React (Icons)
 - **Database:** Supabase (PostgreSQL)
 - **Authentication:** Supabase Auth
-- **APIs:**
-  - **Anthropic Claude 3.5 Sonnet:** AI Agent Orchestration
-  - **FatSecret:** Nutrition Data (OAuth 2.0)
-  - **Spoonacular:** Recipe Search & Details
+- **AI & Agents:**
+  - **Anthropic Claude 3.5 Sonnet:** Agent Orchestration
+  - **Natural Language Processing:** For intelligent food logging
+- **Data & Visualization:**
+  - **Recharts:** Interactive progress charts
+  - **FatSecret API:** Nutrition Data
+  - **Spoonacular API:** Recipe Database
 
 ## Key Features
 
-- **🤖 AI Meal Planner:** Intelligent multi-agent system (powered by Claude 3.5) that generates personalized meal plans based on your goals and leftovers.
-- **👤 Smart Onboarding:** Dedicated wizard to set up your profile, goals, and unit preferences (cm/ft, kg/lbs).
-- **🍎 Smart Meal Logging:** Search for foods or manually enter details.
-- **🍳 Recipe Discovery:** Browse thousands of recipes with filters (Diet, Calories, etc.).
-- **❤️ Favorites System:** Save your favorite recipes and foods for quick access.
-- **⚙️ Settings:** Manage preferences, appearance themes, and edit your profile/goals.
-- **📊 Progress Analytics:** Track weight trends and calorie adherence over time with interactive charts.
-- **⚡ Smart Caching:** Minimizes API usage by caching recipes and food searches in Supabase.
-- **🌱 Demo Readiness:** Includes a built-in seeding tool (`/api/seed`) to instantly populate the account with realistic data for presentations.
+- **🤖 AI Meal Planner:** Intelligent multi-agent system that analyzes your history and generating personalized weekly meal plans.
+- **🗣️ Natural Language Logging:** Log complex meals simply by typing "I had a chicken salad and an apple".
+- **👤 Smart Onboarding:** Personalized setup wizard for calculating BMR, TDEE, and macro goals.
+- **🍳 Recipe Discovery:** Explore thousands of recipes with advanced caching for performance.
+- **❤️ Favorites System:** Save go-to meals and recipes for quick access.
+- **📊 Progress Analytics:** Visualize weight trends and calorie adherence over time.
+- **📱 Responsive & Polished:** Mobile-first design with a clean, professional aesthetic.
+- **⚡ Smart Caching:** Optimized API usage with database-level caching.
 
 ## 🧠 AI Architecture
 
-NutriAI employs a sophisticated **Multi-Agent System** to deliver personalized nutrition advice:
+NutriAI utilizes a **Multi-Agent System** to drive its core intelligence:
 
-1.  **Nutrition Analyst:** Analyzes your daily food logs to identify nutritional gaps.
-2.  **Goal Evaluator:** Compares your intake against your specific profile goals (calories, macros).
-3.  **Meal Planner:** Formulates a high-level meal strategy based on remaining budget and dietary restrictions.
-4.  **Recipe Recommender:** Finds concrete, executable recipes that match the planner's strategy.
+1.  **Nutrition Analyst:** Reviews logs to identify nutritional deficits.
+2.  **Goal Evaluator:** Checks progress against personalized goals.
+3.  **Meal Planner:** Strategizes meal distribution.
+4.  **Recipe Recommender:** Fetches specific recipes to fulfill the plan.
 
-_For a deep dive into the AI implementation, check out the [Claude API Guide](docs/CLAUDE_API_GUIDE.md)._
+_See [AI Workflow](docs/AI_WORKFLOW.md) for details._
 
 ## Documentation
 
 - [API Reference](docs/API_REFERENCE.md)
 - [AI Workflow & Architecture](docs/AI_WORKFLOW.md)
 - [Deployment Guide](docs/DEPLOYMENT.md)
-- [Idea Explanation](docs/IDEA_EXPLANATION.md)
-- [B-Roll Demo Script](docs/DEMO_SCRIPT.md)
 
 ## Contributing
 
