@@ -4,43 +4,43 @@ import { searchFoodFatSecret } from '@/lib/fatsecret';
 // List of common foods to seed
 const COMMON_FOODS = [
   // Proteins
-  'chicken breast',
-  'ground beef',
-  'salmon fillet',
-  'tuna canned',
-  'egg',
+  'chicken breast', 'chicken', 'grilled chicken',
+  'ground beef', 'beef', 'steak',
+  'salmon fillet', 'salmon',
+  'tuna canned', 'tuna',
+  'egg', 'eggs', 'boiled eggs', 'scrambled eggs',
   'tofu',
-  'greek yogurt',
+  'greek yogurt', 'yogurt',
   // Carbs
-  'white rice',
+  'white rice', 'rice',
   'brown rice',
-  'oats',
+  'oats', 'oatmeal',
   'sweet potato',
-  'potato',
-  'pasta',
-  'whole wheat bread',
+  'potato', 'potatoes',
+  'pasta', 'spaghetti',
+  'whole wheat bread', 'bread', 'toast',
   'quinoa',
   // Fruits
-  'banana',
-  'apple',
-  'orange',
+  'banana', 'bananas',
+  'apple', 'apples',
+  'orange', 'oranges',
   'avocado',
   'blueberries',
   'strawberries',
   // Veggies
   'broccoli',
   'spinach',
-  'carrot',
-  'onion',
-  'tomato',
+  'carrot', 'carrots',
+  'onion', 'onions',
+  'tomato', 'tomatoes',
   'bell pepper',
   'cucumber',
   // Drinks
   'coffee',
-  'black tea',
+  'black tea', 'tea',
   'milk',
   'orange juice',
-  'coke'
+  'coke', 'soda'
 ];
 
 export async function GET() {
