@@ -71,25 +71,11 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <Tabs defaultValue='profile' className='w-full'>
+        <Tabs defaultValue='app' className='w-full'>
           <TabsList className='mb-8 grid w-full grid-cols-2'>
-            <TabsTrigger value='profile'>Profile & Goals</TabsTrigger>
             <TabsTrigger value='app'>App Settings</TabsTrigger>
+            <TabsTrigger value='profile'>Profile & Goals</TabsTrigger>
           </TabsList>
-
-          <TabsContent value='profile'>
-            <Card>
-              <CardHeader>
-                <CardTitle>Your Profile</CardTitle>
-                <CardDescription>
-                  Update your stats and goals for better AI recommendations.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ProfileForm />
-              </CardContent>
-            </Card>
-          </TabsContent>
 
           <TabsContent value='app'>
             <div className='grid gap-6'>
@@ -170,6 +156,20 @@ export default function SettingsPage() {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value='profile'>
+            <Card>
+              <CardHeader>
+                <CardTitle>Your Profile</CardTitle>
+                <CardDescription>
+                  Update your stats and goals for better AI recommendations.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ProfileForm />
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>
