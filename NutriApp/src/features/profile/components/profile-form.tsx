@@ -503,13 +503,7 @@ export function ProfileForm({
           {dietaryOptions.map((option) => (
             <div
               key={option.id}
-              className='hover:bg-muted/50 flex cursor-pointer items-center space-x-2 rounded-md border p-3 transition-colors'
-              onClick={() =>
-                handleDietaryChange(
-                  option.id,
-                  !formData.dietary_restrictions.includes(option.id)
-                )
-              }
+              className='hover:bg-muted/50 flex items-center space-x-2 rounded-md border p-3 transition-colors'
             >
               <Checkbox
                 id={option.id}
