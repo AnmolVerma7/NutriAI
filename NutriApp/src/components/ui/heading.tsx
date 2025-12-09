@@ -1,5 +1,5 @@
 interface HeadingProps {
-  title: string;
+  title: string | React.ReactNode;
   description: string;
 }
 
