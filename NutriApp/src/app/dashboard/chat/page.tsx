@@ -121,7 +121,7 @@ export default function ChatPage() {
                   {m.role === 'assistant' && (
                     <Bot className='mt-1 h-5 w-5 shrink-0' />
                   )}
-                  <div className='prose prose-sm dark:prose-invert max-w-none break-words'>
+                  <div className='prose dark:prose-invert max-w-none break-words'>
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
                   </div>
                   {m.role === 'user' && (
