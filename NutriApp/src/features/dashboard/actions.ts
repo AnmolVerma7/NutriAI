@@ -153,7 +153,6 @@ export async function getFavoriteFoodsAction() {
   })) as NutritionData[];
 }
 
-
 import { getAIHelper } from '@/lib/ai-helper';
 
 export async function parseFoodLogAction(input: string) {

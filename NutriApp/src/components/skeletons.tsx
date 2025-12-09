@@ -1,5 +1,10 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardFooter
+} from '@/components/ui/card';
 
 export function RecipeSkeleton() {
   return (

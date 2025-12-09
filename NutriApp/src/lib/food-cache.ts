@@ -4,9 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 // In-memory cache for super-fast repeated searches in the same session
 const memoryCache = new Map<string, NutritionData[]>();
 
-export async function searchFoodCache(
-  query: string
-): Promise<NutritionData[]> {
+export async function searchFoodCache(query: string): Promise<NutritionData[]> {
   const normalizedQuery = query.toLowerCase().trim();
 
   // 1. Check Memory Cache
@@ -26,10 +24,10 @@ export async function searchFoodCache(
       .single();
 
     if (dbCache && dbCache.results) {
-        console.log(`Cache hit (DB) for "${normalizedQuery}"`);
-        const results = dbCache.results as NutritionData[];
-        memoryCache.set(normalizedQuery, results); // Populate memory
-        return results;
+      console.log(`Cache hit (DB) for "${normalizedQuery}"`);
+      const results = dbCache.results as NutritionData[];
+      memoryCache.set(normalizedQuery, results); // Populate memory
+      return results;
     }
   } catch (err) {
     console.warn('Error checking DB cache:', err);

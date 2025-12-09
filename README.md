@@ -110,7 +110,7 @@ Once the server starts, open your web browser and visit:
 - **🍎 Smart Meal Logging:** Search for foods or manually enter details.
 - **🍳 Recipe Discovery:** Browse thousands of recipes with filters (Diet, Calories, etc.).
 - **❤️ Favorites System:** Save your favorite recipes and foods for quick access.
-- **⚙️ Settings:** Manage preferences and edit your profile/goals.
+- **⚙️ Settings:** Manage preferences, appearance themes, and edit your profile/goals.
 - **⚡ Smart Caching:** Minimizes API usage by caching recipes and food searches in Supabase.
 - **📊 Dashboard:** View your daily progress and recent activities.
 

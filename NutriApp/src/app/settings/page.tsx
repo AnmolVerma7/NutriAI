@@ -11,10 +11,11 @@ import {
 } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { ArrowLeft, Trash2, Save, Database } from 'lucide-react';
+import { ArrowLeft, Trash2, Save, Database, Palette } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { clearCacheAction } from '@/features/dashboard/actions/recipes';
+import { ThemeSelector } from '@/components/theme-selector';
 
 import PageContainer from '@/components/layout/page-container';
 
@@ -54,8 +55,6 @@ export default function SettingsPage() {
       setIsClearing(false);
     }
   };
-
-
 
   return (
     <div className='bg-background min-h-screen p-4 md:p-8'>
@@ -103,14 +102,14 @@ export default function SettingsPage() {
                 </CardHeader>
                 <CardContent className='space-y-4'>
                   <div className='flex items-center justify-between space-x-2'>
-                    <div className='space-y-1'>
-                      <Label htmlFor='confirm-delete' className='font-medium'>
-                        Confirm before delete
-                      </Label>
-                      <p className='text-muted-foreground text-sm'>
-                        Show a confirmation dialog when deleting meals.
-                      </p>
-                    </div>
+                      <div className='space-y-1'>
+                        <Label htmlFor='confirm-delete' className='font-medium'>
+                          Confirm before delete
+                        </Label>
+                        <p className='text-muted-foreground text-sm'>
+                          Show a confirmation dialog when deleting meals.
+                        </p>
+                      </div>
                     <Switch
                       id='confirm-delete'
                       checked={confirmDelete}
@@ -120,15 +119,28 @@ export default function SettingsPage() {
                 </CardContent>
               </Card>
 
+              <Card>
+                <CardHeader>
+                  <CardTitle className='flex items-center gap-2'>
+                    <Palette className='h-5 w-5' />
+                    Appearance
+                  </CardTitle>
+                  <CardDescription>
+                    Customize the look and feel of the application.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ThemeSelector />
+                </CardContent>
+              </Card>
+
               <Card className='border-destructive/20'>
                 <CardHeader>
                   <CardTitle className='text-destructive flex items-center gap-2'>
                     <Database className='h-5 w-5' />
                     Data Management
                   </CardTitle>
-                  <CardDescription>
-                    Manage cached data.
-                  </CardDescription>
+                  <CardDescription>Manage cached data.</CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-4'>
                   <div className='bg-muted text-muted-foreground rounded-md p-4 text-sm'>

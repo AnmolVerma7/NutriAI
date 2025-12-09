@@ -13,6 +13,7 @@ import {
   IconDeviceLaptop,
   IconLayoutDashboard,
   IconLoader2,
+  IconLeaf,
   IconLogin,
   IconProps,
   IconShoppingBag,
@@ -42,7 +43,7 @@ export type Icon = React.ComponentType<IconProps>;
 
 export const Icons = {
   dashboard: IconLayoutDashboard,
-  logo: IconCommand,
+  logo: IconLeaf,
   login: IconLogin,
   close: IconX,
   product: IconShoppingBag,

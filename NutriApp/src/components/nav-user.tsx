@@ -1,13 +1,12 @@
 'use client';
 
 import {
-  IconCircleCheck,
-  IconBell,
   IconChevronsDown,
-  IconCreditCard,
   IconLogout,
-  IconSparkles
+  IconSettings,
+  IconUserCircle
 } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -36,6 +35,7 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const router = useRouter();
 
   return (
     <SidebarMenu>
@@ -77,24 +77,15 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconSparkles className='mr-2 h-4 w-4' />
-                Upgrade to Pro
+              <DropdownMenuItem
+                onClick={() => router.push('/dashboard/profile')}
+              >
+                <IconUserCircle className='mr-2 h-4 w-4' />
+                Profile
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconCircleCheck className='mr-2 h-4 w-4' />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconCreditCard className='mr-2 h-4 w-4' />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconBell className='mr-2 h-4 w-4' />
-                Notifications
+              <DropdownMenuItem onClick={() => router.push('/settings')}>
+                <IconSettings className='mr-2 h-4 w-4' />
+                Settings
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

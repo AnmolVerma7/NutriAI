@@ -108,28 +108,28 @@ export function HistoryView({ logs }: HistoryViewProps) {
                 <table className='w-full caption-bottom text-sm'>
                   <thead className='[&_tr]:border-b'>
                     <tr className='hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors'>
-                      <th className='text-muted-foreground hidden h-12 px-4 text-left align-middle font-medium md:table-cell'>
+                      <th className='text-muted-foreground hidden h-12 w-[120px] px-4 text-left align-middle font-medium md:table-cell'>
                         Time
                       </th>
                       <th className='text-muted-foreground h-12 px-4 text-left align-middle font-medium'>
                         Food
                       </th>
-                      <th className='text-muted-foreground hidden h-12 px-4 text-right align-middle font-medium md:table-cell'>
+                      <th className='text-muted-foreground hidden h-12 w-[100px] px-4 text-right align-middle font-medium md:table-cell'>
                         Serving (g)
                       </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
+                      <th className='text-muted-foreground h-12 w-[100px] px-4 text-right align-middle font-medium'>
                         Calories
                       </th>
-                      <th className='text-muted-foreground hidden h-12 px-4 text-right align-middle font-medium md:table-cell'>
+                      <th className='text-muted-foreground hidden h-12 w-[80px] px-4 text-right align-middle font-medium md:table-cell'>
                         Protein
                       </th>
-                      <th className='text-muted-foreground hidden h-12 px-4 text-right align-middle font-medium md:table-cell'>
+                      <th className='text-muted-foreground hidden h-12 w-[80px] px-4 text-right align-middle font-medium md:table-cell'>
                         Carbs
                       </th>
-                      <th className='text-muted-foreground hidden h-12 px-4 text-right align-middle font-medium md:table-cell'>
+                      <th className='text-muted-foreground hidden h-12 w-[80px] px-4 text-right align-middle font-medium md:table-cell'>
                         Fat
                       </th>
-                      <th className='text-muted-foreground h-12 px-4 text-right align-middle font-medium'>
+                      <th className='text-muted-foreground h-12 w-[80px] px-4 text-right align-middle font-medium'>
                         Actions
                       </th>
                     </tr>
@@ -150,11 +150,11 @@ export function HistoryView({ logs }: HistoryViewProps) {
                           )}
                         </td>
                         <td className='p-4 align-middle font-medium'>
-                          <div className="flex items-center gap-3">
-                            <div className="bg-secondary/20 rounded-md p-2">
-                              <FoodIcon name={log.name} className="h-5 w-5" />
+                          <div className='flex items-center gap-3'>
+                            <div className='bg-secondary/20 rounded-md p-2'>
+                              <FoodIcon name={log.name} className='h-5 w-5' />
                             </div>
-                            <div className="flex flex-col">
+                            <div className='flex flex-col'>
                               <span>{log.name}</span>
                               <div className='text-muted-foreground block text-xs md:hidden'>
                                 {new Date(log.created_at).toLocaleTimeString(

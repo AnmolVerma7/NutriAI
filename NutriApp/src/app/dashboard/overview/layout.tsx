@@ -100,7 +100,7 @@ export default async function OverViewLayout({
           <Card>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
               <CardTitle className='text-sm font-medium'>Calories</CardTitle>
-              <IconFlame className='h-4 w-4 text-orange-500' />
+              <IconFlame className='h-6 w-6 text-orange-500' />
             </CardHeader>
             <CardContent>
               <div className='text-2xl font-bold'>
@@ -114,7 +114,7 @@ export default async function OverViewLayout({
           <Card>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
               <CardTitle className='text-sm font-medium'>Protein</CardTitle>
-              <IconMeat className='h-4 w-4 text-red-500' />
+              <IconMeat className='h-6 w-6 text-red-500' />
             </CardHeader>
             <CardContent>
               <div className='text-2xl font-bold'>
@@ -126,7 +126,7 @@ export default async function OverViewLayout({
           <Card>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
               <CardTitle className='text-sm font-medium'>Carbs</CardTitle>
-              <IconGrain className='h-4 w-4 text-yellow-500' />
+              <IconGrain className='h-6 w-6 text-yellow-500' />
             </CardHeader>
             <CardContent>
               <div className='text-2xl font-bold'>
@@ -138,7 +138,7 @@ export default async function OverViewLayout({
           <Card>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
               <CardTitle className='text-sm font-medium'>Fat</CardTitle>
-              <IconDroplet className='h-4 w-4 text-blue-500' />
+              <IconDroplet className='h-6 w-6 text-blue-500' />
             </CardHeader>
             <CardContent>
               <div className='text-2xl font-bold'>
