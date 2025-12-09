@@ -1,10 +1,10 @@
 'use server';
 
-import { searchFoodFatSecret } from '@/lib/fatsecret';
+import { searchFoodCache } from '@/lib/food-cache';
 
 export async function searchFoodAction(query: string) {
   try {
-    const data = await searchFoodFatSecret(query);
+    const data = await searchFoodCache(query);
     return { success: true, data };
   } catch (error) {
     console.error('Search food error:', error);

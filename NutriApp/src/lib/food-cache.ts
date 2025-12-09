@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 // In-memory cache for super-fast repeated searches in the same session
 const memoryCache = new Map<string, NutritionData[]>();
 
-export async function searchFoodFatSecret(
+export async function searchFoodCache(
   query: string
 ): Promise<NutritionData[]> {
   const normalizedQuery = query.toLowerCase().trim();
