@@ -150,74 +150,22 @@ export async function searchFoodFatSecret(
     // Continue to API if DB fails
   }
 
+  // 3. API Disabled (Free Tier Restriction)
+  // To enable, set this to true and ensure proper IP allowlisting
+  const API_ENABLED = false;
+
+  if (!API_ENABLED) {
+    console.log(`API disabled. No cache found for "${normalizedQuery}".`);
+    return [];
+  }
+
+  /* 
   // 3. Fetch from API
   const token = await getAccessToken();
   if (!token) return [];
 
-  try {
-    const url = `${FATSECRET_SEARCH_URL}?method=foods.search&search_expression=${encodeURIComponent(query)}&format=json`;
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`FatSecret search failed: ${response.statusText}`);
-    }
-
-    const data: any = await response.json();
-
-    if (data.error) {
-      console.error('FatSecret API returned error:', data.error);
-      return [];
-    }
-
-    // Handle case where 'food' is not an array (single result) or undefined
-    const foodList = Array.isArray(data.foods?.food)
-      ? data.foods.food
-      : data.foods?.food
-        ? [data.foods.food]
-        : [];
-
-    const results = foodList.map((item: any) => {
-      // Type assertion needed as API response might vary
-      const nutrition = parseNutritionFromDescription(item.food_description);
-      return {
-        name: item.food_name,
-        calories: nutrition.calories || 0,
-        protein_g: nutrition.protein_g || 0,
-        carbohydrates_total_g: nutrition.carbohydrates_total_g || 0,
-        fat_total_g: nutrition.fat_total_g || 0,
-        serving_size_g: nutrition.serving_size_g || 100,
-        sugar_g: 0,
-        fiber_g: 0,
-        sodium_mg: 0,
-        potassium_mg: 0,
-        cholesterol_mg: 0,
-        fat_saturated_g: 0
-      };
-    });
-
-    // 4. Save to Cache (Memory & DB)
-    memoryCache.set(normalizedQuery, results);
-
-    // Fire-and-forget DB update to not block UI
-    (async () => {
-      try {
-        await supabase.from('food_search_cache').upsert({
-          query: normalizedQuery,
-          results: results,
-          created_at: new Date().toISOString()
-        });
-      } catch (err) {
-        console.error('Error saving to DB cache:', err);
-      }
-    })();
-
-    return results;
-  } catch (error) {
-    console.error('Error searching FatSecret:', error);
-    return [];
-  }
+  // ... (API Logic commented out) ...
+  */
+  
+  return [];
 }
